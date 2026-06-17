@@ -1,6 +1,6 @@
 ---
 name: verification
-description: Verify that code actually works before claiming it's done. Use this skill whenever you have written, edited, fixed, or refactored code and are about to report success — especially when you're tempted to say "this should work," "that should fix it," or "done" without having run anything. Triggers on any task whose success is checkable: shipping a feature, fixing a bug, wiring an endpoint, changing a query, touching a UI flow, running a migration, or a performance fix. It does not teach you to write code. It makes you prove the code does what you claimed — with tests, a real browser, the database, the logs, and timing.
+description: Verify that code actually works before claiming it's done. Use this skill whenever you have written, edited, fixed, or refactored code and are about to report success — especially when you're tempted to say "this should work," "that should fix it," or "done" without having run anything. Triggers on any task whose success is checkable — shipping a feature, fixing a bug, wiring an endpoint, changing a query, touching a UI flow, running a migration, or a performance fix. It does not teach you to write code. It makes you prove the code does what you claimed — with tests, a real browser, the database, the logs, and timing.
 ---
 
 # Verification
