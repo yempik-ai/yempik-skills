@@ -1,60 +1,60 @@
 ---
 name: screen-recap
 description: >-
-  Registra una demo o un test end-to-end MIRATO del risultato e lo consegna come VIDEO + recap breve,
-  invece di un wall of text. Registra lo SCHERMO REALE con screencapture — mai slide o title-card.
-  Cattura SOLO la dimostrazione finale (~20-90s), non l'intera sessione. SOLO per Claude Code (CLI
-  locale su macOS); in ambienti sandbox tipo Cowork non funziona. Usa questa skill quando l'utente vuole
-  VEDERE che una cosa funziona invece di leggere — "fammi vedere cosa hai fatto", "fai un test e
-  registralo", "mostrami la demo/il flusso", "registra la verifica", "recap video", "record the e2e
-  test" — e come ultimo step di verifica prima di dichiarare finito (es. dopo aver sviluppato una landing
-  page, registra il test E2E di form/CTA su localhost). NON usarla per task di solo testo/codice senza
-  risultato visibile, salvo richiesta esplicita. Richiede il permesso macOS Registrazione schermo.
+  Record a TARGETED demo or end-to-end test of the result and deliver it as a VIDEO + short recap,
+  instead of a wall of text. Records the REAL SCREEN with screencapture — never slides or title cards.
+  Captures ONLY the final demonstration (~20-90s), not the whole session. ONLY for Claude Code (local
+  CLI on macOS); it does not work in sandbox environments like Cowork. Use this skill when the user wants
+  to SEE that something works instead of reading about it — "show me what you did", "run a test and
+  record it", "show me the demo/the flow", "record the verification", "video recap", "record the e2e
+  test" — and as the last verification step before declaring done (e.g. after building a landing page,
+  record the E2E test of the form/CTA on localhost). Do NOT use it for text-only/code-only tasks with no
+  visible result, unless explicitly requested. Requires the macOS Screen Recording permission.
 ---
 
-# Screen Recap — registra la demo/test, consegna recap breve + video
+# Screen Recap — record the demo/test, deliver a short recap + video
 
-## Cosa fa e perché
-A fine lavoro registra **solo una demo o un test end-to-end mirato** del risultato e lo consegna come **video + recap breve**, al posto di un wall of text. Non registra l'intera sessione: solo la dimostrazione finale che prova che la cosa funziona.
+## What it does and why
+At the end of the work it records **only a targeted demo or end-to-end test** of the result and delivers it as a **video + short recap**, instead of a wall of text. It does not record the whole session: only the final demonstration that proves the thing works.
 
-## Dove gira
-**Solo Claude Code** (CLI locale su macOS): la shell gira sul Mac, quindi può usare `screencapture` per registrare lo schermo davvero. In ambienti sandbox (es. Cowork) non funziona — lì non usare questa skill.
+## Where it runs
+**Claude Code only** (local CLI on macOS): the shell runs on the Mac, so it can use `screencapture` to actually record the screen. In sandbox environments (e.g. Cowork) it does not work — don't use this skill there.
 
-## Regola d'oro — schermo vero
-La clip mostra lo **schermo reale** registrato durante la demo. Mai slide, title-card o ricostruzioni grafiche. Se non puoi registrare lo schermo (es. manca il permesso), **dillo e fermati** — non inventare un sostituto.
+## Golden rule — the real screen
+The clip shows the **real screen** recorded during the demo. Never slides, title cards, or graphical reconstructions. If you can't record the screen (e.g. the permission is missing), **say so and stop** — don't invent a substitute.
 
-## Idea chiave — niente "registrare il passato"
-Non si registra il lavoro già fatto: si registra una dimostrazione fatta adesso.
+## Key idea — no "recording the past"
+You don't record work already done: you record a demonstration performed right now.
 ```
-sviluppo (NON registrato) → rec_start → demo / test E2E → rec_stop → recap + video
-```
-
-## Quando parte
-1. **Su richiesta:** "fammi vedere cosa hai fatto", "fai un test e registralo", "mostrami il flusso".
-2. **Come ultimo step di verifica** prima di dichiarare "finito".
-
-Non registrare se non c'è un risultato **visibile** da mostrare (task di solo testo/codice), salvo richiesta esplicita.
-
-## Come si usa
-1. **Avvio:** `bash scripts/rec_start.sh [cartella_output]` (default `./recordings`).
-2. **Esegui SOLO la demo/test.** Per un'app web: avvia il dev server e percorri il flusso nel browser — es. `npm run dev` → apri `http://localhost:3000` → scroll, click sulla CTA, invio form, stato di successo.
-3. **Stop:** `bash scripts/rec_stop.sh` → finalizza `.mov` (e crea `.mp4` se c'è ffmpeg), stampa il path.
-4. **Recap:** 3–6 righe + il **path assoluto** del video.
-
-## Permesso macOS — una tantum
-*Impostazioni di Sistema → Privacy e sicurezza → Registrazione schermo* → abilita l'app che lancia Claude Code (Terminal / iTerm / VS Code) e riavviala. Senza, il video esce **nero**: è il problema #1, non un bug della skill.
-
-## Modalità automatica (opzionale)
-Per registrare ogni task senza pensarci, installa gli hook in `hooks/` (vedi `README.md`): `UserPromptSubmit`→start, `Stop`→stop. **Sconsigliato** per task lunghi (video enormi): il default è registrare solo la demo.
-
-## Formato del recap — sempre breve
-```
-Fatto: <1 riga>
-Come: <2–3 punti>
-Esito/Verifica: <1 riga: cosa mostra il video>
-Video: <path assoluto>
+development (NOT recorded) → rec_start → demo / E2E test → rec_stop → recap + video
 ```
 
-## File della skill
-- `scripts/rec_start.sh`, `scripts/rec_stop.sh` — start/stop registrazione macOS.
-- `hooks/` — modalità automatica opzionale (`on_prompt_submit.sh`, `on_stop.sh`, `settings.example.json`).
+## When it triggers
+1. **On request:** "show me what you did", "run a test and record it", "show me the flow".
+2. **As the last verification step** before declaring "done".
+
+Don't record if there's no **visible** result to show (text-only/code-only tasks), unless explicitly requested.
+
+## How to use it
+1. **Start:** `bash scripts/rec_start.sh [output_folder]` (default `./recordings`).
+2. **Run ONLY the demo/test.** For a web app: start the dev server and walk through the flow in the browser — e.g. `npm run dev` → open `http://localhost:3000` → scroll, click the CTA, submit the form, success state.
+3. **Stop:** `bash scripts/rec_stop.sh` → finalizes the `.mov` (and creates a `.mp4` if ffmpeg is present), prints the path.
+4. **Recap:** 3–6 lines + the **absolute path** of the video.
+
+## macOS permission — one-time
+*System Settings → Privacy & Security → Screen Recording* → enable the app that launches Claude Code (Terminal / iTerm / VS Code) and restart it. Without it, the video comes out **black**: that's issue #1, not a bug in the skill.
+
+## Automatic mode (optional)
+To record every task hands-free, install the hooks in `hooks/` (see `README.md`): `UserPromptSubmit`→start, `Stop`→stop. **Not recommended** for long tasks (huge videos): the default is to record only the demo.
+
+## Recap format — always short
+```
+Done: <1 line>
+How: <2–3 bullets>
+Outcome/Verification: <1 line: what the video shows>
+Video: <absolute path>
+```
+
+## Skill files
+- `scripts/rec_start.sh`, `scripts/rec_stop.sh` — start/stop macOS recording.
+- `hooks/` — optional automatic mode (`on_prompt_submit.sh`, `on_stop.sh`, `settings.example.json`).

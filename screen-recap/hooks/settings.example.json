@@ -1,5 +1,5 @@
 {
-  "_comment": "Esempio di hook per Claude Code (modalità automatica di screen-recap). Sostituisci /ABSOLUTE/PATH/screen-recap con il path reale della skill, poi incolla il blocco 'hooks' in ~/.claude/settings.json (globale) oppure in <progetto>/.claude/settings.json (solo per quel progetto).",
+  "_comment": "Example hooks for Claude Code (screen-recap automatic mode). Replace /ABSOLUTE/PATH/screen-recap with the real path of the skill, then paste the 'hooks' block into ~/.claude/settings.json (global) or <project>/.claude/settings.json (that project only).",
   "hooks": {
     "UserPromptSubmit": [
       {

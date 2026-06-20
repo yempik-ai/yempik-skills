@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Claude Code hook — Stop: ferma la registrazione se ancora attiva (safety net).
-# Idealmente la registrazione viene gia' fermata da Claude prima di scrivere il recap;
-# questo hook chiude eventuali registrazioni rimaste aperte. Non blocca mai il turno.
+# Claude Code hook — Stop: stop the recording if still active (safety net).
+# Ideally the recording is already stopped by Claude before writing the recap;
+# this hook closes any recordings left open. It never blocks the turn.
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 bash "$HERE/../scripts/rec_stop.sh" >/dev/null 2>&1 || true
