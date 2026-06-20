@@ -1,0 +1,25 @@
+{
+  "_comment": "Esempio di hook per Claude Code (modalità automatica di screen-recap). Sostituisci /ABSOLUTE/PATH/screen-recap con il path reale della skill, poi incolla il blocco 'hooks' in ~/.claude/settings.json (globale) oppure in <progetto>/.claude/settings.json (solo per quel progetto).",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /ABSOLUTE/PATH/screen-recap/hooks/on_prompt_submit.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /ABSOLUTE/PATH/screen-recap/hooks/on_stop.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -9,6 +9,7 @@ Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel t
 | Skill | A cosa serve |
 |---|---|
 | [`verification`](./verification/SKILL.md) | Obbliga l'agente a **dimostrare** che il codice funziona prima di dire "fatto": compila, test, browser, database, log, performance — e ti dice cosa **non** ha verificato. |
+| [`screen-recap`](./screen-recap/SKILL.md) | A fine lavoro registra una **demo / test end-to-end** del risultato e consegna **recap breve + video** invece di un wall of text. *Solo Claude Code (macOS), via `screencapture`.* |
 
 ## Come si usa
 
