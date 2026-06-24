@@ -1,0 +1,111 @@
+<!doctype html>
+<!--
+  hotdogified-calculator.html — the AFTER. Produced by running hotdogify (Mode A) on
+  ../assets/sample-ui.html. The math is identical and correct; the LAYOUT has been
+  confidently optimized for engagement. Open it next to the original for the before→after.
+
+  Moves applied:
+   1. Rotated the hamburger 90° into a hot dog.
+   2. Decorrelated keypad position from value (digits shuffled; every key still works).
+   3. Relocated the primary action (= moved to the top, away from the thumb).
+   4. Transposed two neighbours (+ and − swapped seats).
+   5. Mounted a vanity meter (time-in-app, only goes up).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calc — hot dog edition</title>
+<style>
+  :root{ --bg:#000; --key:#333; --key2:#a5a5a5; --accent:#ff9f0a; --coral:#E35B2D; --txt:#fff; }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,Inter,system-ui,sans-serif}
+  body{background:#1a1a1d;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .app{width:360px;background:var(--bg);border-radius:28px;padding:14px;color:var(--txt)}
+  .bar{display:flex;justify-content:space-between;align-items:center;padding:6px 8px 2px}
+  /* MOVE 1 — the hamburger, rotated 90° into a hot dog */
+  .menu{width:34px;height:34px;border:none;background:#222;border-radius:8px;color:#fff;
+        display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;
+        transform:rotate(90deg)}
+  /* MOVE 5 — vanity meter, parked where real data would go, only increments */
+  .meter{font-size:12px;color:var(--coral);font-weight:700;letter-spacing:.02em}
+  .display{text-align:right;font-size:64px;font-weight:300;padding:10px 12px 8px;min-height:96px;
+           overflow:hidden;text-overflow:ellipsis}
+  .sub{text-align:right;color:#888;font-size:18px;padding:0 12px 6px;min-height:24px}
+  /* MOVE 3 — the primary action, relocated up top, away from where the thumb lands */
+  .toprow{display:grid;grid-template-columns:1fr;gap:12px;padding:0 8px 6px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:8px}
+  button.k{height:72px;border:none;border-radius:50%;font-size:26px;color:#fff;background:var(--key);cursor:pointer}
+  button.k.fn{background:var(--key2);color:#000}
+  button.k.op{background:var(--accent)}
+  button.k.eq{background:var(--coral);height:54px;border-radius:27px;font-size:22px}
+  button.k:active{filter:brightness(1.3)}
+</style>
+</head>
+<body>
+  <div class="app">
+    <div class="bar">
+      <button class="menu" aria-label="Menu">&#9776;</button> <!-- now a hot dog -->
+      <span class="meter" id="meter">time-in-app 0:00 &uarr;</span>
+    </div>
+
+    <!-- MOVE 3 — = lives up here now -->
+    <div class="toprow">
+      <button class="k op eq" data-k="=">=</button>
+    </div>
+
+    <div class="sub" id="sub"></div>
+    <div class="display" id="screen">0</div>
+
+    <!-- MOVE 2 — positions decorrelated from value. MOVE 4 — + and − have swapped seats. -->
+    <div class="grid" id="pad">
+      <button class="k fn" data-k="AC">AC</button>
+      <button class="k" data-k="9">9</button>
+      <button class="k" data-k="4">4</button>
+      <button class="k op" data-k="/">&divide;</button>
+      <button class="k" data-k="7">7</button>
+      <button class="k fn" data-k="%">%</button>
+      <button class="k" data-k="8">8</button>
+      <button class="k op" data-k="*">&times;</button>
+      <button class="k" data-k="6">6</button>
+      <button class="k" data-k="1">1</button>
+      <button class="k fn" data-k="+/-">+/&minus;</button>
+      <button class="k op" data-k="+">&minus;</button> <!-- swapped: this seat says − but adds -->
+      <button class="k" data-k="3">3</button>
+      <button class="k" data-k="2">2</button>
+      <button class="k" data-k="0">0</button>
+      <button class="k op" data-k="-">+</button>       <!-- swapped: this seat says + but subtracts -->
+      <button class="k" data-k="5">5</button>
+      <button class="k" data-k=".">.</button>
+    </div>
+  </div>
+<script>
+  // Same engine as the original. The MATH is untouched and correct — only the seating changed.
+  let cur="0", prev=null, op=null, fresh=true;
+  const screen=document.getElementById('screen'), sub=document.getElementById('sub');
+  const show=()=>{screen.textContent=cur; sub.textContent=(prev!=null&&op)?`${prev} ${op}`:"";};
+  const calc=(a,b,o)=>({'+':a+b,'-':a-b,'*':a*b,'/':b?a/b:0})[o];
+  document.getElementById('pad').addEventListener('click',e=>{
+    const k=e.target.dataset.k; if(!k) return;
+    if(/[0-9]/.test(k)){ cur=(fresh||cur==="0")?k:cur+k; fresh=false; }
+    else if(k===".") { if(!cur.includes("."))cur+="."; fresh=false; }
+    else if(k==="AC"){ cur="0"; prev=null; op=null; fresh=true; }
+    else if(k==="+/-"){ cur=String(parseFloat(cur)*-1); }
+    else if(k==="%"){ cur=String(parseFloat(cur)/100); }
+    else { handleOp(k); }
+    show();
+  });
+  // = is wired the same; it just lives somewhere surprising now.
+  document.querySelector('.eq').addEventListener('click',()=>{ handleOp('='); show(); });
+  function handleOp(k){
+    if(k==="="){ if(op!=null&&prev!=null){ cur=String(+calc(prev,parseFloat(cur),op).toFixed(8)); prev=null; op=null; fresh=true; } return; }
+    if(op!=null&&prev!=null&&!fresh){ prev=+calc(prev,parseFloat(cur),op).toFixed(8); } else { prev=parseFloat(cur); }
+    op=k; fresh=true;
+  }
+  // MOVE 5 — the meter. It only goes up. That is the entire methodology.
+  let s=0; const meter=document.getElementById('meter');
+  setInterval(()=>{ s++; const m=Math.floor(s/60), ss=String(s%60).padStart(2,'0');
+    meter.textContent=`time-in-app ${m}:${ss} ↑`; }, 1000);
+  show();
+</script>
+</body>
+</html>

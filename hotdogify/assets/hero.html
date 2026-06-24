@@ -1,0 +1,86 @@
+<!doctype html>
+<!--
+  hero.html — yempik-branded before → after cover for hotdogify.
+  Open in a browser and screenshot the .cover (1200×630, perfect for a LinkedIn share image).
+  Or just drop your own hero.png next to this file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>hotdogify — hero</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --coral:#E35B2D; --ink:#09090b; --white:#F7F6F4; --mute:#96969E; --key:#2a2a2e; }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
+  body{background:#1a1a1d;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+  .cover{position:relative;width:1200px;height:630px;overflow:hidden;color:var(--white);
+    background:
+      radial-gradient(560px 460px at 130px 120px, rgba(227,91,45,.34), rgba(227,91,45,.05) 55%, transparent 72%),
+      linear-gradient(180deg,#0d0d10 0%,#070708 100%);}
+  .pad{position:absolute;top:96px;display:flex;flex-direction:column;align-items:center;gap:14px}
+  .left{left:96px} .right{right:96px}
+  .phone{width:300px;background:#000;border-radius:26px;padding:16px}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .ham{width:30px;height:30px;background:#222;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .ham.dog{transform:rotate(90deg);color:var(--coral)}
+  .scr{text-align:right;font-size:34px;font-weight:300;padding:4px 6px 10px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+  .k{height:48px;border-radius:50%;background:var(--key);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:500}
+  .k.op{background:#ff9f0a;color:#000} .k.fn{background:#a5a5a5;color:#000} .k.eq{background:var(--coral)}
+  .tag{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+  .tag.a{color:var(--mute)} .tag.b{color:var(--coral)}
+  .arrow{position:absolute;left:50%;top:300px;transform:translateX(-50%);text-align:center}
+  .arrow .g{font-size:46px;color:var(--coral);font-weight:800;line-height:1}
+  .meter{font-size:11px;color:var(--coral);font-weight:700}
+  .head{position:absolute;left:0;right:0;top:470px;text-align:center;padding:0 80px}
+  .wordmark{font-size:22px;font-weight:800;letter-spacing:-.01em}
+  .wordmark .d{color:var(--coral)}
+  .headline{font-size:40px;font-weight:800;letter-spacing:-.02em;margin-top:10px;line-height:1.05}
+  .headline .c{color:var(--coral)}
+  .sub{margin-top:12px;font-size:17px;color:var(--mute)}
+  .sub b{color:var(--white);font-weight:700}
+</style>
+</head>
+<body>
+  <div class="cover">
+    <!-- BEFORE: sensible -->
+    <div class="pad left">
+      <div class="phone">
+        <div class="top"><div class="ham">&#9776;</div><span style="color:#666;font-size:11px">before</span></div>
+        <div class="scr">42</div>
+        <div class="grid">
+          <div class="k fn">AC</div><div class="k fn">±</div><div class="k fn">%</div><div class="k op">&divide;</div>
+          <div class="k">7</div><div class="k">8</div><div class="k">9</div><div class="k op">&times;</div>
+          <div class="k">4</div><div class="k">5</div><div class="k">6</div><div class="k op">&minus;</div>
+          <div class="k">1</div><div class="k">2</div><div class="k">3</div><div class="k op">+</div>
+        </div>
+      </div>
+      <div class="tag a">hamburger layout</div>
+    </div>
+
+    <!-- middle arrow -->
+    <div class="arrow"><div class="g">&rarr;</div></div>
+
+    <!-- AFTER: hotdogified -->
+    <div class="pad right">
+      <div class="phone">
+        <div class="top"><div class="ham dog">&#9776;</div><span class="meter">time-in-app 1:07 &uarr;</span></div>
+        <div class="scr" style="text-align:left"><span class="k eq" style="display:inline-flex;width:48px">=</span></div>
+        <div class="grid">
+          <div class="k fn">AC</div><div class="k">9</div><div class="k">4</div><div class="k op">&divide;</div>
+          <div class="k">7</div><div class="k fn">%</div><div class="k">8</div><div class="k op">&times;</div>
+          <div class="k">6</div><div class="k">1</div><div class="k fn">±</div><div class="k op">&minus;</div>
+          <div class="k">3</div><div class="k">2</div><div class="k">0</div><div class="k op">+</div>
+        </div>
+      </div>
+      <div class="tag b">hot dog layout</div>
+    </div>
+
+    <div class="head">
+      <div class="wordmark">yempik<span class="d">.</span></div>
+      <div class="headline">We turned the hamburger into a <span class="c">hot dog.</span></div>
+      <div class="sub">Time-in-app up 34%. Nobody can find the 7. <b>We do the opposite, for money.</b></div>
+    </div>
+  </div>
+</body>
+</html>
