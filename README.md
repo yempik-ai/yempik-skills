@@ -19,6 +19,7 @@ Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel t
 | [`verification`](./verification/SKILL.md) | Obbliga l'agente a **dimostrare** che il codice funziona prima di dire "fatto": compila, test, browser, database, log, performance — e ti dice cosa **non** ha verificato. |
 | [`screen-recap`](./screen-recap/SKILL.md) | A fine lavoro registra una **demo / test end-to-end** del risultato e consegna **recap breve + video** invece di un wall of text. *Solo Claude Code (macOS), via `screencapture`.* |
 | [`audio-video-transcript`](./audio-video-transcript/SKILL.md) | Trascrive file audio/video locali con Whisper on-device e produce un unico `.md` con **recap strutturato + transcript timestamped**. *Richiede `ffmpeg`; i video vanno bene.* |
+| [`knowledge-transfer`](./knowledge-transfer/SKILL.md) | Intervista una persona, una domanda alla volta, per estrarne il know-how tacito (eccezioni, criteri di decisione, regole non scritte) e scriverlo nei file del **company brain**: decisioni, processi, regole con fonte. Per l'onboarding e il rischio "se questa persona se ne va, se ne va anche il metodo". |
 | [`hotdogify`](./hotdogify/SKILL.md) 🌭 | Peggiora una UI **di proposito** e scrive il report deadpan che lo chiama un *win*: hamburger → hot dog, tastierino mescolato, "intentional friction", metriche che salgono e basta. Roba da postare. *Una battuta che gira davvero.* |
 
 ### Come si usa
@@ -49,6 +50,7 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 | [`verification`](./verification/SKILL.md) | Forces the agent to **prove** the code works before saying "done": build, tests, browser, database, logs, performance — and it tells you what it did **not** verify. |
 | [`screen-recap`](./screen-recap/SKILL.md) | At the end of the work it records a **demo / end-to-end test** of the result and delivers a **short recap + video** instead of a wall of text. *Claude Code only (macOS), via `screencapture`.* |
 | [`audio-video-transcript`](./audio-video-transcript/SKILL.md) | Transcribes local audio/video files with on-device Whisper and produces one `.md` with a **structured recap + timestamped transcript**. *Requires `ffmpeg`; video files are fine.* |
+| [`knowledge-transfer`](./knowledge-transfer/SKILL.md) | Interviews a person, one question at a time, to extract their tacit know-how (exceptions, decision criteria, unwritten rules) and write it into the **company brain**: decisions, processes, rules with a source. For onboarding and the "if this person leaves, the method leaves too" risk. |
 | [`hotdogify`](./hotdogify/SKILL.md) 🌭 | Makes a UI **worse on purpose** and writes the deadpan report that calls it a *win*: hamburger → hot dog, shuffled keypad, "intentional friction", metrics that only go up. Built to be posted. *A joke that actually runs.* |
 
 ### How to use it
