@@ -1,0 +1,102 @@
+[
+  {
+    "query": "fammi una strategia marketing per vendere il mio nuovo servizio di consulenza AI a PMI italiane, budget basso",
+    "should_trigger": true,
+    "reason": "Marketing/GTM strategy, casual Italian phrasing"
+  },
+  {
+    "query": "We need a GTM plan for a B2B SaaS launching in Germany next quarter. I want ICP, channels, pricing assumptions, and 90-day plan.",
+    "should_trigger": true,
+    "reason": "GTM strategy"
+  },
+  {
+    "query": "Can you critique this pricing page and suggest a better packaging strategy?",
+    "should_trigger": true,
+    "reason": "Pricing strategy critique"
+  },
+  {
+    "query": "I have 20k users but retention is awful. What growth strategy would you use?",
+    "should_trigger": true,
+    "reason": "Growth/retention strategy"
+  },
+  {
+    "query": "Give me a content calendar for LinkedIn",
+    "should_trigger": true,
+    "reason": "Content strategy, should avoid generic calendar"
+  },
+  {
+    "query": "How do we beat competitor X without lowering price?",
+    "should_trigger": true,
+    "reason": "Competitive strategy"
+  },
+  {
+    "query": "Create an investor narrative for our seed deck",
+    "should_trigger": true,
+    "reason": "Fundraising strategy"
+  },
+  {
+    "query": "Marketplace cold start: should we seed supply or demand first?",
+    "should_trigger": true,
+    "reason": "Marketplace strategy"
+  },
+  {
+    "query": "Build a Python function to sort a list",
+    "should_trigger": false,
+    "reason": "Coding task, no strategy"
+  },
+  {
+    "query": "Translate this paragraph into Italian",
+    "should_trigger": false,
+    "reason": "Translation"
+  },
+  {
+    "query": "Summarize this PDF",
+    "should_trigger": false,
+    "reason": "Document summarization unless strategy is requested"
+  },
+  {
+    "query": "What is the capital of France?",
+    "should_trigger": false,
+    "reason": "Simple factual question"
+  },
+  {
+    "query": "Write a funny birthday message for my friend",
+    "should_trigger": false,
+    "reason": "Creative writing not strategy"
+  },
+  {
+    "query": "Make a logo for my bakery",
+    "should_trigger": false,
+    "reason": "Design/image task; brand strategy only if asking positioning"
+  },
+  {
+    "query": "Should I quit my job?",
+    "should_trigger": false,
+    "reason": "Life advice unless explicitly framed as career strategy"
+  },
+  {
+    "query": "Help me decide which customer segment to focus on for the next 6 months",
+    "should_trigger": true,
+    "reason": "Business/GTM strategic focus"
+  },
+  {
+    "query": "Our community has 5k members but no revenue impact; what should we change?",
+    "should_trigger": true,
+    "reason": "Community strategy"
+  },
+  {
+    "query": "We need to raise prices but fear churn. Give me a plan.",
+    "should_trigger": true,
+    "reason": "Pricing/retention strategy"
+  },
+  {
+    "query": "Create a 30/60/90 sales plan for founder-led outbound",
+    "should_trigger": true,
+    "reason": "Sales strategy"
+  },
+  {
+    "query": "What should our product roadmap be if activation is low?",
+    "should_trigger": true,
+    "reason": "Product/growth strategy"
+  }
+]

@@ -16,6 +16,7 @@ Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel t
 
 | Skill | A cosa serve |
 |---|---|
+| [`senior-strategy-architect`](./senior-strategy-architect/SKILL.md) | Trasforma richieste vaghe ("fammi una strategia", "growth ideas", "piano GTM") in **strategia senior**: diagnostica il vero collo di bottiglia, sceglie il playbook giusto (marketing, GTM, pricing, prodotto, sales, brand, retention, fundraising…), fa scelte e trade-off espliciti e consegna un piano operativo con metriche, rischi e QA anti-fluff. 14 playbook + framework library, niente liste generiche. |
 | [`verification`](./verification/SKILL.md) | Obbliga l'agente a **dimostrare** che il codice funziona prima di dire "fatto": compila, test, browser, database, log, performance — e ti dice cosa **non** ha verificato. |
 | [`screen-recap`](./screen-recap/SKILL.md) | A fine lavoro registra una **demo / test end-to-end** del risultato e consegna **recap breve + video** invece di un wall of text. *Solo Claude Code (macOS), via `screencapture`.* |
 | [`audio-video-transcript`](./audio-video-transcript/SKILL.md) | Trascrive file audio/video locali con Whisper on-device e produce un unico `.md` con **recap strutturato + transcript timestamped**. *Richiede `ffmpeg`; i video vanno bene.* |
@@ -47,6 +48,7 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 
 | Skill | What it's for |
 |---|---|
+| [`senior-strategy-architect`](./senior-strategy-architect/SKILL.md) | Turns vague asks ("give me a strategy", "growth ideas", "GTM plan") into **senior-level strategy**: diagnoses the real bottleneck, picks the right playbook (marketing, GTM, pricing, product, sales, brand, retention, fundraising…), makes explicit choices and trade-offs, and delivers an operating plan with metrics, risks and anti-fluff QA. 14 playbooks + a framework library, no generic lists. |
 | [`verification`](./verification/SKILL.md) | Forces the agent to **prove** the code works before saying "done": build, tests, browser, database, logs, performance — and it tells you what it did **not** verify. |
 | [`screen-recap`](./screen-recap/SKILL.md) | At the end of the work it records a **demo / end-to-end test** of the result and delivers a **short recap + video** instead of a wall of text. *Claude Code only (macOS), via `screencapture`.* |
 | [`audio-video-transcript`](./audio-video-transcript/SKILL.md) | Transcribes local audio/video files with on-device Whisper and produces one `.md` with a **structured recap + timestamped transcript**. *Requires `ffmpeg`; video files are fine.* |
