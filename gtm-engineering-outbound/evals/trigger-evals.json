@@ -1,0 +1,62 @@
+[
+  {
+    "query": "Voglio creare un sistema outbound B2B per vendere cowork-os a founder italiani. Mi serve ICP, segnali, lista e prime email.",
+    "should_trigger": true,
+    "reason": "Full GTM engineering outbound system in Italian."
+  },
+  {
+    "query": "Can you design a Clay-style signal map for B2B SaaS companies using HubSpot but likely underusing it?",
+    "should_trigger": true,
+    "reason": "Signal design and Clay-style list building."
+  },
+  {
+    "query": "La nostra campagna cold email ha 55% open rate ma pochissime risposte positive. Cosa cambiamo?",
+    "should_trigger": true,
+    "reason": "Outbound performance diagnosis."
+  },
+  {
+    "query": "Audit this outbound sequence and tell me if the personalization is fake or actually signal-based.",
+    "should_trigger": true,
+    "reason": "Copy and signal audit."
+  },
+  {
+    "query": "Come imposto domini, mailbox e warmup per partire con cold email senza bruciare il dominio?",
+    "should_trigger": true,
+    "reason": "Deliverability setup."
+  },
+  {
+    "query": "Create a 30/60/90 founder-led outbound plan for a productized AI consulting offer.",
+    "should_trigger": true,
+    "reason": "Founder-led outbound plan."
+  },
+  {
+    "query": "I have a spreadsheet of ecommerce brands. Help me decide what signals to enrich before writing copy.",
+    "should_trigger": true,
+    "reason": "List enrichment and signal mapping."
+  },
+  {
+    "query": "Fammi una strategia marketing generale per un ristorante a Milano.",
+    "should_trigger": false,
+    "reason": "General marketing strategy, not GTM engineering outbound unless outbound/list/signal/delivery is requested."
+  },
+  {
+    "query": "Translate this email from Italian to English.",
+    "should_trigger": false,
+    "reason": "Translation only."
+  },
+  {
+    "query": "Summarize this PDF and extract the table of contents.",
+    "should_trigger": false,
+    "reason": "Document summarization, no outbound system."
+  },
+  {
+    "query": "Build a React dashboard for my sales metrics.",
+    "should_trigger": false,
+    "reason": "Coding/frontend task, not GTM engineering advice."
+  },
+  {
+    "query": "Write a funny LinkedIn post about AI agents.",
+    "should_trigger": false,
+    "reason": "Content writing not tied to outbound prospecting system."
+  }
+]
