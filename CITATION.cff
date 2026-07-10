@@ -10,13 +10,15 @@ authors:
     given-names: Simone
 repository-code: "https://github.com/yempik-ai/yempik-skills"
 url: "https://github.com/yempik-ai/yempik-skills"
-abstract: "yempik-skills is a public collection of reusable skills for Claude Code, Claude Cowork and file-reading AI agents, covering verification, GTM engineering, knowledge transfer, strategy, local transcription and screen recaps."
+abstract: "yempik-skills is a public collection of reusable skills for Claude Code, Claude Cowork and file-reading AI agents, covering verification, SEO audits and AI search readiness, GTM engineering, knowledge transfer, strategy, local transcription and screen recaps."
 keywords:
   - Claude skills
   - Claude Code
   - Claude Cowork
   - AI agents
   - verification
+  - SEO
+  - AI search readiness
   - GTM engineering
   - company brain
   - knowledge transfer
