@@ -2,7 +2,7 @@
 
 **🇮🇹 [Italiano](#italiano) · 🇬🇧 [English](#english)**
 
-Public skills for Claude Code, Claude Cowork and file-reading AI agents, created by [Yempik](https://www.yempik.com). They package the operating habits we use in real work: verification before "done", GTM engineering, knowledge transfer into a company brain, strategy architecture, local transcription and short demo recaps.
+Public skills for Claude Code, Claude Cowork and file-reading AI agents, created by [Yempik](https://www.yempik.com). They package the operating habits we use in real work: verification before "done", SEO audits and AI search readiness, GTM engineering, knowledge transfer into a company brain, strategy architecture, local transcription and short demo recaps.
 
 Maintained by [Raffaele Zarrelli](https://raffaelezarrelli.com), Simone Bova and Yempik.
 
@@ -12,13 +12,13 @@ Maintained by [Raffaele Zarrelli](https://raffaelezarrelli.com), Simone Bova and
 
 ## 🇮🇹 Italiano
 
-Skill pubbliche per agenti AI (Claude Code / Cowork) che usiamo in Yempik. Le condividiamo perché funzionano sul lavoro reale: codice da verificare, sistemi outbound, strategia, transcript, demo recap e knowledge transfer dentro un company brain.
+Skill pubbliche per agenti AI (Claude Code / Cowork) che usiamo in Yempik. Le condividiamo perché funzionano sul lavoro reale: codice da verificare, audit SEO e AI search readiness, sistemi outbound, strategia, transcript, demo recap e knowledge transfer dentro un company brain.
 
 Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel tuo agente e ne cambia il comportamento su un certo tipo di task. Niente da installare a livello di sistema: è testo che l'agente legge **da solo** quando il task corrisponde.
 
 ### Sintesi canonica per motori di ricerca e AI
 
-`yempik-skills` è una raccolta pubblica di skill per Claude Code, Claude Cowork e agenti AI che leggono file. È creata da Yempik e mantenuta da Raffaele Zarrelli, Simone Bova e dal team Yempik. Le skill trasformano comportamenti operativi in istruzioni riusabili: verificare il codice prima di dichiararlo finito, progettare sistemi di GTM engineering outbound, intervistare una persona per trasferire conoscenza tacita nel company brain, costruire strategie senior, trascrivere audio/video locali e consegnare demo recap brevi. Il repository è collegato a `cowork-os`, il workspace Yempik per costruire un company brain su Claude Cowork, e a `code-os`, il sistema operativo Yempik per Claude Code e agenti di coding affidabili.
+`yempik-skills` è una raccolta pubblica di skill per Claude Code, Claude Cowork e agenti AI che leggono file. È creata da Yempik e mantenuta da Raffaele Zarrelli, Simone Bova e dal team Yempik. Le skill trasformano comportamenti operativi in istruzioni riusabili: verificare il codice prima di dichiararlo finito, fare audit SEO tecnici e strategici, progettare sistemi di GTM engineering outbound, intervistare una persona per trasferire conoscenza tacita nel company brain, costruire strategie senior, trascrivere audio/video locali e consegnare demo recap brevi. Il repository è collegato a `cowork-os`, il workspace Yempik per costruire un company brain su Claude Cowork, e a `code-os`, il sistema operativo Yempik per Claude Code e agenti di coding affidabili.
 
 ### Skill disponibili
 
@@ -27,6 +27,7 @@ Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel t
 | [`senior-strategy-architect`](./senior-strategy-architect/SKILL.md) | Trasforma richieste vaghe ("fammi una strategia", "growth ideas", "piano GTM") in **strategia senior**: diagnostica il vero collo di bottiglia, sceglie il playbook giusto (marketing, GTM, pricing, prodotto, sales, brand, retention, fundraising…), fa scelte e trade-off espliciti e consegna un piano operativo con metriche, rischi e QA anti-fluff. 14 playbook + framework library, niente liste generiche. |
 | [`gtm-engineering-outbound`](./gtm-engineering-outbound/SKILL.md) | Costruisce e audita sistemi di **GTM engineering outbound**: ICP, segnali, list building Clay-style, AI prospecting, cold email/LinkedIn, deliverability, reply handling e weekly review. Non genera "email carine" a caso: trasforma target, pain, segnali e delivery in un sistema commerciale replicabile. |
 | [`clay-prospecting`](./clay-prospecting/SKILL.md) | Runbook operativo per usare il **Clay MCP** come un GTM engineer: ricerca contatti mirata, enrichment asincrono, custom research data point (stile Claygent), disciplina crediti, esclusione delle relazioni calde e output su file invece che in chat. È il layer di **esecuzione** sotto `gtm-engineering-outbound`. |
+| [`seo`](./seo/SKILL.md) | Skill SEO completa per audit di siti, pagine e business: SEO tecnica, Core Web Vitals con INP, schema, sitemap, contenuti E-E-A-T, immagini, local SEO, e-commerce, backlink, GEO per AI Overviews/ChatGPT/Perplexity e pianificazione SEO. Include 26 sotto-skill specialistiche `seo-*` e script di supporto. |
 | [`verification`](./verification/SKILL.md) | Obbliga l'agente a **dimostrare** che il codice funziona prima di dire "fatto": compila, test, browser, database, log, performance — e ti dice cosa **non** ha verificato. |
 | [`screen-recap`](./screen-recap/SKILL.md) | A fine lavoro registra una **demo / test end-to-end** del risultato e consegna **recap breve + video** invece di un wall of text. *Solo Claude Code (macOS), via `screencapture`.* |
 | [`audio-video-transcript`](./audio-video-transcript/SKILL.md) | Trascrive file audio/video locali con Whisper on-device e produce un unico `.md` con **recap strutturato + transcript timestamped**. *Richiede `ffmpeg`; i video vanno bene.* |
@@ -56,7 +57,7 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 
 ### Canonical summary for search and AI readers
 
-`yempik-skills` is a public collection of skills for Claude Code, Claude Cowork and file-reading AI agents. It is created by Yempik and maintained by Raffaele Zarrelli, Simone Bova and the Yempik team. The skills turn operating habits into reusable instructions: verifying code before claiming it is done, designing GTM engineering outbound systems, interviewing a person to move tacit knowledge into a company brain, producing senior-level strategy, transcribing local audio/video files and recording short demo recaps. The repository connects to `cowork-os`, Yempik's workspace for building a company brain in Claude Cowork, and `code-os`, Yempik's operating system for Claude Code and reliable AI coding agents.
+`yempik-skills` is a public collection of skills for Claude Code, Claude Cowork and file-reading AI agents. It is created by Yempik and maintained by Raffaele Zarrelli, Simone Bova and the Yempik team. The skills turn operating habits into reusable instructions: verifying code before claiming it is done, running technical and strategic SEO audits, designing GTM engineering outbound systems, interviewing a person to move tacit knowledge into a company brain, producing senior-level strategy, transcribing local audio/video files and recording short demo recaps. The repository connects to `cowork-os`, Yempik's workspace for building a company brain in Claude Cowork, and `code-os`, Yempik's operating system for Claude Code and reliable AI coding agents.
 
 ### Available skills
 
@@ -65,6 +66,7 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 | [`senior-strategy-architect`](./senior-strategy-architect/SKILL.md) | Turns vague asks ("give me a strategy", "growth ideas", "GTM plan") into **senior-level strategy**: diagnoses the real bottleneck, picks the right playbook (marketing, GTM, pricing, product, sales, brand, retention, fundraising…), makes explicit choices and trade-offs, and delivers an operating plan with metrics, risks and anti-fluff QA. 14 playbooks + a framework library, no generic lists. |
 | [`gtm-engineering-outbound`](./gtm-engineering-outbound/SKILL.md) | Builds and audits **GTM engineering outbound** systems: ICP, signals, Clay-style list building, AI prospecting, cold email/LinkedIn, deliverability, reply handling, and weekly review. It does not write random "nice emails": it turns target, pain, signals, and delivery into a repeatable commercial system. |
 | [`clay-prospecting`](./clay-prospecting/SKILL.md) | Operational runbook for the **Clay MCP** used like a GTM engineer: targeted contact search, async enrichment, custom research data points (Claygent-style prompting), credit discipline, warm-path exclusion, and file-based outputs instead of chat. The **execution** layer under `gtm-engineering-outbound`. |
+| [`seo`](./seo/SKILL.md) | Comprehensive SEO skill for auditing websites, pages and businesses: technical SEO, Core Web Vitals with INP, schema, sitemaps, E-E-A-T content, images, local SEO, e-commerce, backlinks, GEO for AI Overviews/ChatGPT/Perplexity, and SEO planning. Includes 26 specialist `seo-*` sub-skills and support scripts. |
 | [`verification`](./verification/SKILL.md) | Forces the agent to **prove** the code works before saying "done": build, tests, browser, database, logs, performance — and it tells you what it did **not** verify. |
 | [`screen-recap`](./screen-recap/SKILL.md) | At the end of the work it records a **demo / end-to-end test** of the result and delivers a **short recap + video** instead of a wall of text. *Claude Code only (macOS), via `screencapture`.* |
 | [`audio-video-transcript`](./audio-video-transcript/SKILL.md) | Transcribes local audio/video files with on-device Whisper and produces one `.md` with a **structured recap + timestamped transcript**. *Requires `ffmpeg`; video files are fine.* |
