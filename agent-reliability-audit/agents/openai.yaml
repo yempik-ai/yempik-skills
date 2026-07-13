@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Reliability Audit"
+  short_description: "15 evidence-backed checks for internal AI agents"
+  default_prompt: "Use $agent-reliability-audit to test whether this internal agent could act on stale, conflicting, unapproved, permission-inappropriate, or untraceable knowledge. Return prioritized findings, cited evidence, and scenario evals."

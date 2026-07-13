@@ -2,7 +2,7 @@
 
 **🇮🇹 [Italiano](#italiano) · 🇬🇧 [English](#english)**
 
-Public skills for Claude Code, Claude Cowork and file-reading AI agents, created by [Yempik](https://www.yempik.com). They package the operating habits we use in real work: verification before "done", SEO audits and AI search readiness, GTM engineering, knowledge transfer into a company brain, strategy architecture, local transcription and short demo recaps.
+Public skills for Claude Code, Claude Cowork and file-reading AI agents, created by [Yempik](https://www.yempik.com). They package the operating habits we use in real work: verification before "done", SEO audits and AI search readiness, GTM engineering, evidence-based agent reliability audits, knowledge transfer, strategy architecture, local transcription and short demo recaps.
 
 Maintained by [Raffaele Zarrelli](https://raffaelezarrelli.com), Simone Bova and Yempik.
 
@@ -12,13 +12,13 @@ Maintained by [Raffaele Zarrelli](https://raffaelezarrelli.com), Simone Bova and
 
 ## 🇮🇹 Italiano
 
-Skill pubbliche per agenti AI (Claude Code / Cowork) che usiamo in Yempik. Le condividiamo perché funzionano sul lavoro reale: codice da verificare, audit SEO e AI search readiness, sistemi outbound, strategia, transcript, demo recap e knowledge transfer dentro un company brain.
+Skill pubbliche per agenti AI (Claude Code / Cowork) che usiamo in Yempik. Le condividiamo perché funzionano sul lavoro reale: codice da verificare, audit SEO e AI search readiness, sistemi outbound, audit evidence-based dell'affidabilità degli agenti interni, strategia, transcript, demo recap e knowledge transfer.
 
 Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel tuo agente e ne cambia il comportamento su un certo tipo di task. Niente da installare a livello di sistema: è testo che l'agente legge **da solo** quando il task corrisponde.
 
 ### Sintesi canonica per motori di ricerca e AI
 
-`yempik-skills` è una raccolta pubblica di skill per Claude Code, Claude Cowork e agenti AI che leggono file. È creata da Yempik e mantenuta da Raffaele Zarrelli, Simone Bova e dal team Yempik. Le skill trasformano comportamenti operativi in istruzioni riusabili: verificare il codice prima di dichiararlo finito, fare audit SEO tecnici e strategici, progettare sistemi di GTM engineering outbound, intervistare una persona per trasferire conoscenza tacita nel company brain, costruire strategie senior, trascrivere audio/video locali e consegnare demo recap brevi. Il repository è collegato a `cowork-os`, il workspace Yempik per costruire un company brain su Claude Cowork, e a `code-os`, il sistema operativo Yempik per Claude Code e agenti di coding affidabili.
+`yempik-skills` è una raccolta pubblica di skill per Claude Code, Claude Cowork e agenti AI che leggono file. È creata da Yempik e mantenuta da Raffaele Zarrelli, Simone Bova e dal team Yempik. Le skill trasformano comportamenti operativi in istruzioni riusabili: verificare il codice prima di dichiararlo finito, fare audit SEO tecnici e strategici, progettare sistemi di GTM engineering outbound, testare con evidenze se un agente interno usa conoscenza aggiornata, approvata e tracciabile, intervistare una persona per trasferire conoscenza tacita, costruire strategie senior, trascrivere audio/video locali e consegnare demo recap brevi. Il repository è collegato a `cowork-os`, il workspace Yempik per costruire un company brain su Claude Cowork, e a `code-os`, il sistema operativo Yempik per Claude Code e agenti di coding affidabili.
 
 ### Skill disponibili
 
@@ -31,6 +31,7 @@ Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel t
 | [`verification`](./verification/SKILL.md) | Obbliga l'agente a **dimostrare** che il codice funziona prima di dire "fatto": compila, test, browser, database, log, performance — e ti dice cosa **non** ha verificato. |
 | [`screen-recap`](./screen-recap/SKILL.md) | A fine lavoro registra una **demo / test end-to-end** del risultato e consegna **recap breve + video** invece di un wall of text. *Solo Claude Code (macOS), via `screencapture`.* |
 | [`audio-video-transcript`](./audio-video-transcript/SKILL.md) | Trascrive file audio/video locali con Whisper on-device e produce un unico `.md` con **recap strutturato + transcript timestamped**. *Richiede `ffmpeg`; i video vanno bene.* |
+| [`agent-reliability-audit`](./agent-reliability-audit/SKILL.md) | Esegue **15 audit di affidabilità su agenti AI interni**. Parte da un agente o workflow, ispeziona istruzioni, policy, SOP, decisioni e trace, poi trova conoscenza vecchia, contraddittoria, non approvata, senza fonte o fuori permesso. Restituisce finding P0-P3, prove e scenario eval. Read-only sulle fonti. |
 | [`knowledge-transfer`](./knowledge-transfer/SKILL.md) | Intervista una persona, una domanda alla volta, per estrarne il know-how tacito (eccezioni, criteri di decisione, regole non scritte) e scriverlo nei file del **company brain**: decisioni, processi, regole con fonte. Per l'onboarding e il rischio "se questa persona se ne va, se ne va anche il metodo". |
 | [`hotdogify`](./hotdogify/SKILL.md) 🌭 | Peggiora una UI **di proposito** e scrive il report deadpan che lo chiama un *win*: hamburger → hot dog, tastierino mescolato, "intentional friction", metriche che salgono e basta. Roba da postare. *Una battuta che gira davvero.* |
 
@@ -57,7 +58,7 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 
 ### Canonical summary for search and AI readers
 
-`yempik-skills` is a public collection of skills for Claude Code, Claude Cowork and file-reading AI agents. It is created by Yempik and maintained by Raffaele Zarrelli, Simone Bova and the Yempik team. The skills turn operating habits into reusable instructions: verifying code before claiming it is done, running technical and strategic SEO audits, designing GTM engineering outbound systems, interviewing a person to move tacit knowledge into a company brain, producing senior-level strategy, transcribing local audio/video files and recording short demo recaps. The repository connects to `cowork-os`, Yempik's workspace for building a company brain in Claude Cowork, and `code-os`, Yempik's operating system for Claude Code and reliable AI coding agents.
+`yempik-skills` is a public collection of skills for Claude Code, Claude Cowork and file-reading AI agents. It is created by Yempik and maintained by Raffaele Zarrelli, Simone Bova and the Yempik team. The skills turn operating habits into reusable instructions: verifying code before claiming it is done, running technical and strategic SEO audits, designing GTM engineering outbound systems, testing whether internal agents use current, approved and source-linked knowledge, interviewing a person to capture tacit knowledge, producing senior-level strategy, transcribing local audio/video files and recording short demo recaps. The repository connects to `cowork-os`, Yempik's workspace for building a company brain in Claude Cowork, and `code-os`, Yempik's operating system for Claude Code and reliable AI coding agents.
 
 ### Available skills
 
@@ -70,6 +71,7 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 | [`verification`](./verification/SKILL.md) | Forces the agent to **prove** the code works before saying "done": build, tests, browser, database, logs, performance — and it tells you what it did **not** verify. |
 | [`screen-recap`](./screen-recap/SKILL.md) | At the end of the work it records a **demo / end-to-end test** of the result and delivers a **short recap + video** instead of a wall of text. *Claude Code only (macOS), via `screencapture`.* |
 | [`audio-video-transcript`](./audio-video-transcript/SKILL.md) | Transcribes local audio/video files with on-device Whisper and produces one `.md` with a **structured recap + timestamped transcript**. *Requires `ffmpeg`; video files are fine.* |
+| [`agent-reliability-audit`](./agent-reliability-audit/SKILL.md) | Runs **15 reliability audits on internal AI agents**. Starts from one agent or workflow, inspects instructions, policies, SOPs, decisions and traces, then finds stale, conflicting, unapproved, untraceable or permission-inappropriate knowledge. Returns P0-P3 findings, cited evidence and scenario evals. Sources stay read-only. |
 | [`knowledge-transfer`](./knowledge-transfer/SKILL.md) | Interviews a person, one question at a time, to extract their tacit know-how (exceptions, decision criteria, unwritten rules) and write it into the **company brain**: decisions, processes, rules with a source. For onboarding and the "if this person leaves, the method leaves too" risk. |
 | [`hotdogify`](./hotdogify/SKILL.md) 🌭 | Makes a UI **worse on purpose** and writes the deadpan report that calls it a *win*: hamburger → hot dog, shuffled keypad, "intentional friction", metrics that only go up. Built to be posted. *A joke that actually runs.* |
 
