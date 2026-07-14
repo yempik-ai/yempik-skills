@@ -1,0 +1,52 @@
+[
+  {
+    "query": "Run an agent reliability audit on our internal support agent. Check its instructions, policies, SOPs and recent traces, then show evidence for every finding.",
+    "should_trigger": true,
+    "reason": "Explicit internal-agent reliability audit"
+  },
+  {
+    "query": "Can our internal support agent safely approve refunds from these SOPs and recent tickets? Test normal cases, conflicts and exceptions.",
+    "should_trigger": true,
+    "reason": "Workflow-specific agent reliability audit"
+  },
+  {
+    "query": "Find where this agent could use a stale policy, choose the wrong source, or skip a required approval.",
+    "should_trigger": true,
+    "reason": "Wrong-source and approval-risk assessment"
+  },
+  {
+    "query": "Map which Notion pages and files this sales agent treats as sources of truth and flag contradictions without changing anything.",
+    "should_trigger": true,
+    "reason": "Read-only source-precedence and contradiction audit"
+  },
+  {
+    "query": "Assess whether this internal agent's knowledge is permission-aware, approved, current and traceable to an authoritative source.",
+    "should_trigger": true,
+    "reason": "Agent knowledge-governance assessment"
+  },
+  {
+    "query": "Audit this company brain for agent readiness and give me evidence behind stale decisions, conflicting procedures and missing sources.",
+    "should_trigger": true,
+    "reason": "Company-brain audit with explicit agent-reliability objective"
+  },
+  {
+    "query": "Interview our COO to document the approval process.",
+    "should_trigger": false,
+    "reason": "Knowledge-transfer task, not an audit"
+  },
+  {
+    "query": "Summarize this folder.",
+    "should_trigger": false,
+    "reason": "Generic summarization"
+  },
+  {
+    "query": "Create a Notion knowledge base for our team.",
+    "should_trigger": false,
+    "reason": "Knowledge-base implementation, not reliability assessment"
+  },
+  {
+    "query": "Certify that our AI system is GDPR compliant and secure.",
+    "should_trigger": false,
+    "reason": "Legal and security certification is outside the skill"
+  }
+]

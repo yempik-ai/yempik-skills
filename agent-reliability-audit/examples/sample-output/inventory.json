@@ -1,0 +1,138 @@
+{
+  "summary": {
+    "generated_at": "2026-07-13T14:36:43.766023+00:00",
+    "root": "examples/sample-workspace",
+    "candidate_file_count": 5,
+    "parsed_file_count": 5,
+    "total_bytes": 2173,
+    "extensions": {
+      ".md": 5
+    },
+    "skipped": {},
+    "unsupported_extensions": {},
+    "governance_signals": {
+      "files_with_any_frontmatter_governance": 0,
+      "files_with_owner": 0,
+      "files_with_status": 0,
+      "files_with_source": 0,
+      "files_with_review_signal": 0,
+      "files_with_supersession_signal": 0
+    },
+    "warning": "Structural signals are inventory aids, not findings. Age is not proof of staleness; readability is not proof of authorization; marker counts are not proof of governance or quality."
+  },
+  "files": [
+    {
+      "path": "agents/support-agent.md",
+      "extension": ".md",
+      "bytes": 441,
+      "modified_at": "2026-07-13T14:35:33.484629+00:00",
+      "age_days": 0,
+      "parse_status": "parsed",
+      "sha256": "7d3fda9846a57aa819965580e7063811f3a7168d2b90ecc2cc23cd67be44a0f1",
+      "lines": 15,
+      "title": "Support Agent Instructions",
+      "governance": {},
+      "signals": {
+        "iso_dates_sample": [
+          "2026-05-20",
+          "2026-06-03"
+        ],
+        "reference_marker_count": 0,
+        "open_marker_count": 0,
+        "decision_marker_count": 0,
+        "exception_marker_count": 0,
+        "possible_secret_assignment": false
+      }
+    },
+    {
+      "path": "cases/ticket-1042.md",
+      "extension": ".md",
+      "bytes": 310,
+      "modified_at": "2026-07-13T14:35:33.484837+00:00",
+      "age_days": 0,
+      "parse_status": "parsed",
+      "sha256": "baf595da4e29697eea5b0fa711c3c4245cf669c15de5de72be30d0adaa3073cd",
+      "lines": 14,
+      "title": "Ticket 1042",
+      "governance": {},
+      "signals": {
+        "iso_dates_sample": [
+          "2026-06-18"
+        ],
+        "reference_marker_count": 0,
+        "open_marker_count": 0,
+        "decision_marker_count": 0,
+        "exception_marker_count": 0,
+        "possible_secret_assignment": false
+      }
+    },
+    {
+      "path": "decisions/2026-05-20-refund-threshold.md",
+      "extension": ".md",
+      "bytes": 478,
+      "modified_at": "2026-07-13T14:35:33.484444+00:00",
+      "age_days": 0,
+      "parse_status": "parsed",
+      "sha256": "e1e8b1d76125bc1428f11af97010239958c8c713e2623b175c533cfd7cea7b68",
+      "lines": 15,
+      "title": "Decision: reduce the support refund threshold",
+      "governance": {},
+      "signals": {
+        "iso_dates_sample": [
+          "2026-05-20",
+          "2026-06-01"
+        ],
+        "reference_marker_count": 0,
+        "open_marker_count": 0,
+        "decision_marker_count": 4,
+        "exception_marker_count": 0,
+        "possible_secret_assignment": false
+      }
+    },
+    {
+      "path": "policies/refunds-policy.md",
+      "extension": ".md",
+      "bytes": 467,
+      "modified_at": "2026-07-13T14:35:33.483790+00:00",
+      "age_days": 0,
+      "parse_status": "parsed",
+      "sha256": "5466851435e564169608959507c02433c4aa6557ebdfeee90c681f24b15fd158",
+      "lines": 20,
+      "title": "Refund Policy",
+      "governance": {},
+      "signals": {
+        "iso_dates_sample": [
+          "2026-06-01",
+          "2026-09-01"
+        ],
+        "reference_marker_count": 0,
+        "open_marker_count": 0,
+        "decision_marker_count": 2,
+        "exception_marker_count": 0,
+        "possible_secret_assignment": false
+      }
+    },
+    {
+      "path": "sops/refund-handling.md",
+      "extension": ".md",
+      "bytes": 477,
+      "modified_at": "2026-07-13T14:35:33.484257+00:00",
+      "age_days": 0,
+      "parse_status": "parsed",
+      "sha256": "1fbf91e7de5b7a7e5a6bd70f20b7e5a8227738ac4c6f954638c49cb791891aff",
+      "lines": 20,
+      "title": "Refund Handling SOP",
+      "governance": {},
+      "signals": {
+        "iso_dates_sample": [
+          "2026-02-10"
+        ],
+        "reference_marker_count": 0,
+        "open_marker_count": 0,
+        "decision_marker_count": 1,
+        "exception_marker_count": 1,
+        "possible_secret_assignment": false
+      }
+    }
+  ]
+}
