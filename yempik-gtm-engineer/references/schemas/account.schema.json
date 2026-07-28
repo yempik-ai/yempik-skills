@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "account.schema.json",
+  "title": "Account",
+  "description": "A target company. Derives from the rows of the commercial state file (`commercial_state_file`) and the contact queue file (`contact_queue_file`).",
+  "type": "object",
+  "required": [
+    "account_id",
+    "name",
+    "domain",
+    "segment_id",
+    "state",
+    "source",
+    "created_at"
+  ],
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "name": {
+      "type": "string",
+      "x-source": "website",
+      "x-update": "manual_only"
+    },
+    "domain": {
+      "type": "string",
+      "description": "Deduplication key and the per-account tracking value carried by `Message.utm_content`.",
+      "x-source": "website",
+      "x-update": "once"
+    },
+    "city": {
+      "type": "string",
+      "x-source": "website",
+      "x-update": "manual_only"
+    },
+    "segment_id": {
+      "type": "string",
+      "description": "The segment this account belongs to.",
+      "$comment": "Open string. Values are validated against the workspace's market configuration in `references/markets/`, which instantiates the `segment_definitions` slot. The reference motion used four ordered segments; the order is the work sequence.",
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "lifecycle": {
+      "type": "string",
+      "enum": [
+        "lead",
+        "prospect",
+        "active_customer",
+        "partner",
+        "past_customer",
+        "inactive"
+      ],
+      "description": "Mirrors the lifecycle field of the configured CRM (`crm_system`). Distinct from `state`, which is the GTM state machine.",
+      "x-source": "crm",
+      "x-update": "on_event"
+    },
+    "state": {
+      "type": "string",
+      "description": "State in the GTM state machine.",
+      "enum": [
+        "sourced",
+        "enriched",
+        "scored",
+        "in_queue",
+        "researched",
+        "contacted",
+        "followed_up",
+        "replied",
+        "meeting_set",
+        "meeting_held",
+        "opportunity",
+        "nurture",
+        "lost",
+        "dead_channel",
+        "excluded_warm"
+      ],
+      "x-source": "computed",
+      "x-update": "on_event"
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 12,
+      "x-source": "computed",
+      "x-update": "per_run"
+    },
+    "score_breakdown": {
+      "type": "object",
+      "description": "Six dimensions with NON-uniform weights, total 0-12. See `policies/02-scoring.md` and the `scoring_weights` slot.",
+      "properties": {
+        "scale_and_complexity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Portfolio, units, team, offices or network."
+        },
+        "centralisation": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Central processes and services, distinct roles."
+        },
+        "evidence_of_system": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "A named incumbent system or a fragmented stack, never assumed."
+        },
+        "pilotability": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Heaviest weight: an isolable unit, a sponsor, an actual user, data."
+        },
+        "decision_access": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Buying group identified and reachable."
+        },
+        "change_signal": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Acquisition, new office, hiring, reorganisation."
+        }
+      },
+      "x-source": "computed",
+      "x-update": "per_run"
+    },
+    "icp_class": {
+      "type": "string",
+      "enum": [
+        "IN_ICP",
+        "BORDERLINE",
+        "OUT_OF_ICP"
+      ],
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "signal": {
+      "type": "object",
+      "description": "The specific fact that justifies contacting this account. Without it, no outreach.",
+      "required": [
+        "text",
+        "source_url",
+        "observed_at"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "x-source": "website"
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "x-source": "website"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date",
+          "x-source": "computed"
+        },
+        "type": {
+          "type": "string",
+          "description": "The class of signal observed.",
+          "$comment": "Open string. Values are validated against the workspace's market configuration in `references/markets/`, which instantiates the `signal_types` slot. Signal types are market-specific and are the most expensive part of the configuration to regenerate.",
+          "x-source": "agent_inference"
+        }
+      },
+      "x-update": "on_event"
+    },
+    "angle_id": {
+      "type": "string",
+      "description": "The message framing selected for this account, taken from the closed set of angles.",
+      "$comment": "Open string. Values are validated against the workspace's market configuration in `references/markets/`, which instantiates the `angle_set` slot. The set is closed per market: four angles over 26 accounts still allow learning, 26 angles allow none.",
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "is_warm_relationship": {
+      "type": "boolean",
+      "default": false,
+      "description": "If true, outbound and enrichment are forbidden (doctrine D4, the zero rule).",
+      "x-source": "founder",
+      "x-update": "manual_only"
+    },
+    "touch_count_email": {
+      "type": "integer",
+      "maximum": 3,
+      "description": "Email touches already spent on this account.",
+      "$comment": "The effective limit is the `touch_cap_per_account` configuration slot (reference default: 2). The schema bound is 3, the highest value that slot may take. The cap is hard: doctrine D2 forbids a third touch, it does not discourage it.",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "next_action": {
+      "type": "string",
+      "x-source": "agent_inference",
+      "x-update": "per_run"
+    },
+    "next_action_date": {
+      "type": "string",
+      "format": "date",
+      "x-source": "agent_inference",
+      "x-update": "per_run"
+    },
+    "reactivation_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Populated only on an explicit dated deferral from the prospect.",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "exclusion_reason": {
+      "type": "string",
+      "enum": [
+        "warm_relationship",
+        "special_case",
+        "explicit_refusal",
+        "dead_channel",
+        "out_of_icp"
+      ],
+      "$comment": "Instantiates the `exclusion_rules` slot. The five categories are permanent: an excluded account leaves the queue, it does not wait in it.",
+      "x-source": "founder",
+      "x-update": "on_event"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "description": "Email thread, file or URL that proves the current state.",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "evidence_date": {
+      "type": "string",
+      "format": "date-time",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "contradictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Conflicts between sources, to be flagged and not resolved. Example: a registry showing declared revenue incompatible with the declared portfolio.",
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "web_sourcing",
+        "founder_input",
+        "inbound",
+        "referral",
+        "unknown"
+      ],
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "priority_band": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "not_now"
+      ],
+      "description": "Reference bands: 9-12 A, 7-8 B, 5-6 C, below 5 not now. Further-research threshold: score 7 or above.",
+      "$comment": "Thresholds come from the `priority_bands` and `further_research_threshold` slots.",
+      "x-source": "computed",
+      "x-update": "per_run"
+    },
+    "scan_json": {
+      "type": "object",
+      "description": "Raw output of the site scan: scale, offices, team, software, public emails, signals, proof (URL). Source of the score points, kept for audit.",
+      "x-source": "website",
+      "x-update": "per_run"
+    },
+    "domain_alive": {
+      "type": "boolean",
+      "description": "Mandatory check before any enrichment. In the reference sample 20% of domains were dead.",
+      "x-source": "computed",
+      "x-update": "per_run"
+    }
+  }
+}

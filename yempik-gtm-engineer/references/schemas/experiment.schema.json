@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "experiment.schema.json",
+  "title": "Experiment",
+  "description": "A batch or a test. Models the batches actually executed (batches 2, 3 and 4) and their approval.",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "hypothesis",
+    "status",
+    "approved_by_founder",
+    "started_at"
+  ],
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "name": {
+      "type": "string",
+      "x-source": "founder",
+      "x-update": "once"
+    },
+    "hypothesis": {
+      "type": "string",
+      "description": "What must be true for this to work.",
+      "x-source": "agent_inference",
+      "x-update": "manual_only"
+    },
+    "segment_id": {
+      "type": "string",
+      "$comment": "Open string, validated against `references/markets/` like `Account.segment_id`.",
+      "x-source": "agent_inference",
+      "x-update": "once"
+    },
+    "angle_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "$comment": "Open strings, validated against the market's `angle_set` like `Account.angle_id`.",
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "template_id": {
+      "type": "string",
+      "x-source": "workspace_file",
+      "x-update": "once"
+    },
+    "accounts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "x-source": "computed",
+      "x-update": "on_event"
+    },
+    "approved_by_founder": {
+      "type": "boolean",
+      "description": "Mandatory gate. In the reference motion the fourth batch was approved on day 7, before any account in it was touched.",
+      "$comment": "This is the list-approval gate. It instantiates the `list_approval_required` slot (reference default: true). An experiment may not move to running while this is false, and the approval is recorded before the first touch, never reconstructed after it.",
+      "x-source": "founder",
+      "x-update": "on_event"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date",
+      "x-source": "founder",
+      "x-update": "once"
+    },
+    "sample_size": {
+      "type": "integer",
+      "x-source": "computed",
+      "x-update": "derived"
+    },
+    "results": {
+      "type": "object",
+      "properties": {
+        "sent": {
+          "type": "integer"
+        },
+        "human_replies": {
+          "type": "integer"
+        },
+        "positive_replies": {
+          "type": "integer"
+        },
+        "meetings_set": {
+          "type": "integer"
+        },
+        "dead_channels": {
+          "type": "integer"
+        }
+      },
+      "x-source": "computed",
+      "x-update": "derived"
+    },
+    "statistical_caveat": {
+      "type": "string",
+      "description": "Mandatory when sample_size is below the `min_sample_size_for_rule` slot (reference default: 30). Prevents treating 4 conversions out of 26 as a benchmark.",
+      "$comment": "The caveat is a written sentence, not a flag. It states the sample size, that the result is not statistically significant, and whether the variable was ever tested against a control.",
+      "x-source": "agent_inference",
+      "x-update": "derived"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "stop",
+        "iterate",
+        "scale",
+        "pending"
+      ],
+      "x-source": "founder",
+      "x-update": "on_event"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "approved",
+        "running",
+        "closed"
+      ],
+      "x-source": "computed",
+      "x-update": "on_event"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date",
+      "x-source": "computed",
+      "x-update": "once"
+    }
+  }
+}

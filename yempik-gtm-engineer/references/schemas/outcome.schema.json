@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "outcome.schema.json",
+  "title": "Outcome",
+  "description": "A verifiable commercial outcome. Separates what is proved from what is only correlated.",
+  "type": "object",
+  "required": [
+    "outcome_id",
+    "account_id",
+    "type",
+    "occurred_at",
+    "evidence_ref",
+    "verifiability"
+  ],
+  "properties": {
+    "outcome_id": {
+      "type": "string",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "account_id": {
+      "type": "string",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "human_reply",
+        "positive_reply",
+        "meeting_set",
+        "meeting_held",
+        "no_show",
+        "pilot_verbal",
+        "pilot_signed",
+        "invoiced",
+        "deferred",
+        "lost",
+        "dead_channel"
+      ],
+      "description": "A ladder that prevents confusing a positive reply with a meeting.",
+      "$comment": "The last four rungs instantiate the `opportunity_stage_ladder` slot. No skipping: each step needs a dated, verifiable event.",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The exact moment of the event, not of its entry.",
+      "x-source": "email",
+      "x-update": "once"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "description": "The thread or message that proves it. Without one, the outcome is not recordable.",
+      "x-source": "email",
+      "x-update": "once"
+    },
+    "evidence_quote": {
+      "type": "string",
+      "x-source": "email",
+      "x-update": "once"
+    },
+    "verifiability": {
+      "type": "string",
+      "enum": [
+        "verified",
+        "correlated",
+        "inferred"
+      ],
+      "description": "verified = a dated event with a primary source. correlated = associated but not causal. inferred = reconstructed, no direct artefact.",
+      "$comment": "Contractual anti-inflation field. Enforced by eval EV-TRUTH-01: an outcome without a primary source may not be recorded as verified, and a state may not advance on an inferred outcome.",
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "attribution": {
+      "type": "string",
+      "enum": [
+        "outbound_campaign",
+        "founder_direct",
+        "inbound",
+        "referral",
+        "unknown"
+      ],
+      "description": "unknown is a legitimate value. Real case: an unattributed calendar contact (ACCOUNT-F) that the campaign could not claim.",
+      "$comment": "Contractual anti-inflation field. Enforced by eval EV-ATTRIBUTION-01: where the origin is not evidenced, the value is unknown, never the campaign.",
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "attributed_touches": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The message_id values that preceded the outcome. Allows measuring the weight of the follow-up.",
+      "x-source": "computed",
+      "x-update": "derived"
+    },
+    "time_to_reply_minutes": {
+      "type": "integer",
+      "description": "Observed metric: ACCOUNT-C replied in 38 minutes, ACCOUNT-A in 290.",
+      "x-source": "computed",
+      "x-update": "derived"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Only when invoiced or contracted. A verbal agreement stays null.",
+      "$comment": "Currency-agnostic: record the figure in the workspace's own currency. The reference motion's only agreed price was verbal, at cost, and never invoiced.",
+      "x-source": "crm",
+      "x-update": "on_event"
+    }
+  }
+}

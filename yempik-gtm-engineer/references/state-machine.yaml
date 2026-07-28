@@ -1,0 +1,206 @@
+# GTM state machine
+# Reconstructed from the states actually traversed in the reference motion.
+# observed: a state really executed in the reconstructed period
+# proposed: necessary but performed by hand
+#
+# File paths are never hard-coded here. Where a state needs a company document or a
+# company value, it names a slot from references/configuration.md and the reference
+# default is quoted in the adjacent comment.
+version: 0.1.0
+
+conventions:
+  human_approval:
+    none: reversible internal action, the agent proceeds
+    notify: the agent proceeds and reports in the brief
+    required: the agent stops and waits for the founder
+  data_required: fields without which the transition is forbidden
+
+states:
+
+  - id: setup
+    status: observed
+    purpose: make the agent operable at a new company
+    entry: [company_knowledge_base_accessible, email_connector_active]
+    required_reads:                 # configuration slots, read in this order
+      - writing_rules_file          # hard gate: binding writing rules
+      - positioning_file            # ICP and offer
+      - autonomy_boundary_file      # what requires approval
+      - systems_of_record_file      # where truth lives for each kind of fact
+    exit: [icp_approved, claims_approved, send_rule_confirmed, touch_cap_defined]
+    data_required: [icp_definition, offer_definition, send_authority, max_first_touches_per_day]
+    human_approval: required
+    allowed_transitions: [segmentation]
+    forbidden_transitions:
+      - target: outreach
+        reason: writing copy without an approved ICP and approved claims produces unauthorised claims
+
+  - id: segmentation
+    status: observed
+    purpose: define the segments and the exclusions before looking for names
+    entry: [icp_approved]
+    outputs: [ordered_segments, exclusion_list]
+    data_required: [segment_id, segment_rationale, exclusion_rules]
+    human_approval: notify
+    allowed_transitions: [sourcing]
+    forbidden_transitions:
+      - target: enrichment
+        reason: enriching before segmenting spends budget on rows outside the ICP
+    real_example: four ordered segments declared in the segment_definitions slot (centralised
+      enterprise operators, networks and franchises, structured regional operators, adjacent
+      ecosystem)
+
+  - id: sourcing
+    status: observed
+    purpose: build the universe from public sources, agent first
+    entry: [ordered_segments]
+    inputs: [segment_id, geography, public_sources]
+    outputs: [raw_universe, funnel_counts]
+    data_required: [account_name, domain, source_url, sourced_at]
+    human_approval: none
+    allowed_transitions: [enrichment, scoring]
+    forbidden_transitions:
+      - target: outreach
+        reason: no contact without scoring and list approval
+    real_example: 152 sourced, 139 live domains, 43 in ICP, 46 borderline, 50 out of ICP
+
+  - id: enrichment
+    status: observed
+    purpose: complete only the fields that change the recipient, the message or the action
+    entry: [account_in_universe]
+    rules:
+      - agent_first: exhaust the website and public sources before any paid tool
+      - filter_before_you_enrich: never enrich a row outside the ICP
+      - never_on_a_warm_relationship: the zero rule
+    outputs: [enriched_account, declared_missing_fields]
+    data_required: [evidence_snippet, evidence_source, evidence_date]
+    human_approval: required        # when it involves spend; slot enrichment_spend_approval (reference default: required)
+    allowed_transitions: [scoring]
+    real_example: no enrichment credits spent between day 5 and day 18
+
+  - id: scoring
+    status: observed
+    purpose: order the queue, not predict conversion
+    entry: [enriched_account]
+    formula_ref: policies/02-scoring.md
+    outputs: [score, score_breakdown, rank]
+    data_required: [score, score_breakdown, scored_at]
+    human_approval: required        # final list approval before use; slot list_approval_required (reference default: true)
+    allowed_transitions: [research, sourcing]
+    forbidden_transitions:
+      - target: outreach
+        reason: the list must be approved by the founder before the first touch
+    real_example: top 30 shortlist approved by the founder on day 7
+
+  - id: research
+    status: observed
+    purpose: find the specific fact that justifies the message and choose the angle
+    entry: [account_on_the_approved_list]
+    outputs: [signal, angle, stakeholder, contact_channel]
+    data_required: [signal_text, signal_source_url, angle_id, stakeholder_or_mailbox]
+    stop_conditions:
+      - no_specific_fact_found: the account does not enter outreach
+      - email_not_found: flag it, never guess the address
+    human_approval: none
+    allowed_transitions: [outreach, sourcing]
+
+  - id: outreach
+    status: observed
+    purpose: prepare drafts, never send
+    entry: [signal_present, angle_chosen, channel_identified]
+    caps:                                                    # values come from configuration.md, not from this file
+      first_touches_per_day: max_first_touches_per_day       # reference default: 3
+      email_touches_per_account: touch_cap_per_account       # reference default: 2
+    outputs: [draft_id, message_record]
+    data_required: [draft_id, template_id, angle_id, personalization_fact, cta, utm_content]
+    checks_before_output:
+      - no_em_dash
+      - no_banned_loanwords                                  # list comes from the active languages/*.md, slot banned_tokens
+      - single_cta
+      - tracked_product_link_at_first_mention
+      - no_unapproved_claim
+      - no_duplicate_draft_for_the_same_thread
+    human_approval: required        # sending is always the founder's; slot send_authority (reference default: human_only)
+    allowed_transitions: [reply_handling, outreach]
+    forbidden_transitions:
+      - target: opportunity
+        reason: a send is not an opportunity
+
+  - id: reply_handling
+    status: observed
+    purpose: classify every reply and drive it to a decision
+    entry: [reply_detected_in_email]
+    taxonomy: [interest_with_slot, interest_without_slot, information_request, deferral,
+               refusal, auto_reply, internal_routing, bounce]
+    rules:
+      - an_auto_reply_is_never_interest
+      - internal_routing_restarts_from_the_cited_contact
+      - a_dated_deferral_creates_a_scheduled_reactivation
+      - an_explicit_refusal_closes_the_thread_and_forbids_re_contact_on_the_topic
+    outputs: [reply_class, next_action, account_state_update]
+    data_required: [reply_class, reply_quote, reply_at, next_action, next_action_date]
+    human_approval: notify          # required for the reply to be sent
+    allowed_transitions: [discovery, outreach, learning, opportunity]
+    real_example: ACCOUNT-B returned an auto_reply routing to the finance analyst; the thread
+      restarted from the cited contact
+
+  - id: discovery
+    status: observed
+    purpose: understand the workflow, the authority, the baseline and the candidate pilot unit
+    entry: [meeting_set_with_date_and_time]
+    mandatory_questions_ref: mandatory_discovery_questions   # configuration slot, market-specific
+    outputs: [call_record, qualification, objections, feature_requests]
+    data_required: [attendees, workflow, current_system, pain, authority, baseline, next_step]
+    exit_options: [pilot_qualified, nurture, disqualified]
+    human_approval: none            # the call is run by a human; the agent prepares and records
+    allowed_transitions: [opportunity, learning, review]
+
+  - id: opportunity
+    status: observed
+    purpose: run a real negotiation with a verifiable event at every advancement
+    entry: [pilot_qualified]
+    stage_ladder: [call_held, pilot_verbal, pilot_signed, invoiced]   # slot opportunity_stage_ladder
+    rules:
+      - every_advancement_requires_a_dated_verifiable_event
+      - never_promote_on_declared_intent
+    data_required: [stage, stage_evidence, amount_or_null, owner, next_action_date]
+    human_approval: required        # on price, contract and commitments
+    allowed_transitions: [review, learning]
+    real_example: ACCOUNT-A held at pilot agreed (verbal) because there is no invoice
+
+  - id: review
+    status: observed
+    purpose: identify the weekly bottleneck and decide stop, iterate or scale
+    frequency: weekly
+    inputs: [funnel_counts, reply_classes, call_outcomes, open_next_actions]
+    outputs: [bottleneck, decision, next_week_focus]
+    data_required: [period, metrics, bottleneck, decision]
+    human_approval: required
+    allowed_transitions: [learning, segmentation, sourcing, outreach]
+
+  - id: learning
+    status: proposed                # performed informally, never formalised
+    purpose: turn evidence into durable-knowledge candidates
+    inputs: [reply_classes, objections, corrections, failed_assumptions]
+    outputs: [learning_candidate]
+    rules:
+      - a_candidate_is_not_a_decision_until_a_founder_ratifies_it
+      - founder_corrections_take_priority_over_any_heuristic
+    human_approval: required
+    allowed_transitions: [setup, segmentation, review]
+    gap: |
+      In the observed period, learning happened through dated deltas in the commercial state
+      file (slot commercial_state_file) and through direct corrections, with no structured log.
+
+global_forbidden_transitions:
+  - {from: any, to: outreach, condition: list_not_approved}
+  - {from: any, to: opportunity, condition: no_dated_event}
+  - {from: reply_handling, to: outreach, condition: explicit_refusal_received}
+  - {from: any, to: enrichment, condition: account_is_a_warm_relationship}
+  # touch_cap_per_account, reference default: 2
+  - {from: outreach, to: outreach, condition: touch_cap_reached}
+
+global_stop_conditions:
+  - bounce_or_decommissioned_mailbox: mark the channel dead, do not retry
+  - explicit_refusal: close and do not re-contact on the topic
+  - conflict_between_sources: stop, flag it, never choose autonomously
+  - fact_missing_for_the_message: do not invent, flag it

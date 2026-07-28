@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stakeholder.schema.json",
+  "title": "Stakeholder",
+  "description": "A person or a mailbox. Models the real case in which the recipient is NOT a known person (info@, operations@).",
+  "type": "object",
+  "required": [
+    "stakeholder_id",
+    "account_id",
+    "contact_type",
+    "email_status"
+  ],
+  "properties": {
+    "stakeholder_id": {
+      "type": "string",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "account_id": {
+      "type": "string",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "contact_type": {
+      "type": "string",
+      "enum": [
+        "named_contact",
+        "department_mailbox",
+        "generic_mailbox",
+        "certified_mail"
+      ],
+      "description": "A real distinction: ACCOUNT-C converted from a department mailbox, not from a named contact.",
+      "$comment": "Universal. The preference order over these values is the `stakeholder_preference_order` slot, and it is weak evidence: a monitored department mailbox beat an absent named contact.",
+      "x-source": "website",
+      "x-update": "on_event"
+    },
+    "full_name": {
+      "type": "string",
+      "x-source": "website",
+      "x-update": "manual_only"
+    },
+    "role_title": {
+      "type": "string",
+      "x-source": "website",
+      "x-update": "manual_only"
+    },
+    "decision_role": {
+      "type": "string",
+      "enum": [
+        "sponsor",
+        "operational_user",
+        "approver",
+        "gatekeeper",
+        "unknown"
+      ],
+      "description": "Defaults to unknown. ACCOUNT-B teaches not to assume authority from a job title: the person who replied was not the person who decided.",
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "x-source": "website",
+      "x-update": "on_event"
+    },
+    "email_status": {
+      "type": "string",
+      "enum": [
+        "public_verified",
+        "public_obfuscated",
+        "not_found",
+        "verified_by_reply",
+        "bounced",
+        "decommissioned"
+      ],
+      "description": "not_found forces a flag. Never guess an address.",
+      "$comment": "Universal and load-bearing. Without the not_found value the agent has no way to report failure and will pattern-guess firstname.lastname@domain, which is the banned anti-pattern.",
+      "x-source": "computed",
+      "x-update": "on_event"
+    },
+    "phone": {
+      "type": "string",
+      "x-source": "website",
+      "x-update": "manual_only"
+    },
+    "routed_from": {
+      "type": "string",
+      "description": "The stakeholder who routed the thread here, for example the ACCOUNT-B auto-reply that pointed to the finance analyst.",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "is_warm": {
+      "type": "boolean",
+      "default": false,
+      "x-source": "founder",
+      "x-update": "manual_only"
+    },
+    "evidence_ref": {
+      "type": "string",
+      "x-source": "email",
+      "x-update": "on_event"
+    }
+  }
+}
