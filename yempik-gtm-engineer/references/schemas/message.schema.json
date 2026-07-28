@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "message.schema.json",
+  "title": "Message",
+  "description": "A draft or a sent message. The compliance checks are part of the object, not an external step.",
+  "type": "object",
+  "required": [
+    "message_id",
+    "account_id",
+    "direction",
+    "channel",
+    "status",
+    "template_id"
+  ],
+  "properties": {
+    "message_id": {
+      "type": "string",
+      "x-source": "email",
+      "x-update": "once"
+    },
+    "thread_id": {
+      "type": "string",
+      "x-source": "email",
+      "x-update": "once"
+    },
+    "account_id": {
+      "type": "string",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "stakeholder_id": {
+      "type": "string",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "outbound",
+        "inbound"
+      ],
+      "x-source": "email",
+      "x-update": "once"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "email",
+        "linkedin",
+        "phone"
+      ],
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "touch_number": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3,
+      "description": "Which touch this message is, counted per account.",
+      "$comment": "The effective limit is the `touch_cap_per_account` configuration slot (reference default: 2). The schema bound is 3, the highest value that slot may take.",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "template_id": {
+      "type": "string",
+      "description": "The template this message was built from.",
+      "$comment": "Open string. The reference motion used five: first_touch_reference, follow_up_single, no_show_recovery, slot_confirmation, post_call_recap. A workspace declares its own set; the schema does not close it.",
+      "x-source": "workspace_file",
+      "x-update": "once"
+    },
+    "angle_id": {
+      "type": "string",
+      "x-source": "agent_inference",
+      "x-update": "once"
+    },
+    "personalization_fact": {
+      "type": "string",
+      "description": "The specific fact cited in the first line. Mandatory on first touches.",
+      "x-source": "website",
+      "x-update": "once"
+    },
+    "personalization_source_url": {
+      "type": "string",
+      "format": "uri",
+      "x-source": "website",
+      "x-update": "once"
+    },
+    "cta": {
+      "type": "string",
+      "description": "One per message. Wording comes from the `cta_wording` slot, the count from `cta_count_per_message` (reference default: 1).",
+      "x-source": "workspace_file",
+      "x-update": "once"
+    },
+    "utm_content": {
+      "type": "string",
+      "description": "The account domain. Required at the first mention of the product, per the `tracked_link_policy` slot.",
+      "x-source": "computed",
+      "x-update": "once"
+    },
+    "compliance_checks": {
+      "type": "object",
+      "description": "All required checks true is a necessary condition to deliver the draft. A false value blocks delivery; it does not produce a warning.",
+      "required": [
+        "single_cta",
+        "tracked_link_present",
+        "claims_approved",
+        "no_duplicate_draft"
+      ],
+      "properties": {
+        "single_cta": {
+          "type": "boolean",
+          "description": "Exactly one call to action in the message body."
+        },
+        "tracked_link_present": {
+          "type": "boolean",
+          "description": "A tracked product link at the first product mention, carrying the account domain."
+        },
+        "claims_approved": {
+          "type": "boolean",
+          "description": "Every assertion is drawn from the ratified `approved_claims` list."
+        },
+        "no_duplicate_draft": {
+          "type": "boolean",
+          "description": "No other live draft exists for the same idempotency key (account_id, template_id, thread_id)."
+        },
+        "language_checks": {
+          "type": "object",
+          "description": "Register checks that depend on the customer language.",
+          "$comment": "Supplied by the active language adapter (`references/languages/`), selected by the `customer_language` slot and populated from `banned_tokens` and `allowed_exceptions`. Which of these keys exist, and whether they are required, is the adapter's decision, not the schema's.",
+          "properties": {
+            "no_em_dash": {
+              "type": "boolean",
+              "description": "No em-dash in output prose. Banned in every language the reference motion shipped."
+            },
+            "no_anglicisms": {
+              "type": "boolean",
+              "description": "No English loanwords in customer-facing copy beyond the declared exceptions. Applies to the Italian adapter; the English adapter has no equivalent."
+            }
+          }
+        }
+      },
+      "x-source": "computed",
+      "x-update": "per_run"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "sent_by_human",
+        "superseded",
+        "discarded"
+      ],
+      "description": "superseded covers the real case of the ACCOUNT-C draft made obsolete by a manual send.",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "reply_class": {
+      "type": "string",
+      "enum": [
+        "interest_with_slot",
+        "interest_without_slot",
+        "information_request",
+        "deferral",
+        "refusal",
+        "auto_reply",
+        "internal_routing",
+        "bounce"
+      ],
+      "$comment": "Closed and universal. auto_reply is never interest: the class exists so that an out-of-office cannot advance a state.",
+      "x-source": "agent_inference",
+      "x-update": "on_event"
+    },
+    "reply_quote": {
+      "type": "string",
+      "description": "Literal quotation. Forbids the paraphrase that inflates interest.",
+      "x-source": "email",
+      "x-update": "on_event"
+    },
+    "human_edited": {
+      "type": "boolean",
+      "description": "True if the founder edited the draft before sending: input for the learning loop.",
+      "x-source": "email",
+      "x-update": "on_event"
+    }
+  }
+}

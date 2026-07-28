@@ -1,0 +1,4 @@
+domain,account_name,suppression_reason,added_on,added_by
+account-001.example,ACCOUNT-001,warm_relationship,day 7,founder
+account-002.example,ACCOUNT-002,explicit_refusal,day 14,agent
+account-003.example,ACCOUNT-003,touch_cap_reached,day 20,agent
