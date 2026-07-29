@@ -34,6 +34,7 @@ Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel t
 | [`agent-reliability-audit`](./agent-reliability-audit/SKILL.md) | Esegue **15 audit di affidabilità su agenti AI interni**. Parte da un agente o workflow, ispeziona istruzioni, policy, SOP, decisioni e trace, poi trova conoscenza vecchia, contraddittoria, non approvata, senza fonte o fuori permesso. Restituisce finding P0-P3, prove e scenario eval. Read-only sulle fonti. |
 | [`knowledge-transfer`](./knowledge-transfer/SKILL.md) | Intervista una persona, una domanda alla volta, per estrarne il know-how tacito (eccezioni, criteri di decisione, regole non scritte) e scriverlo nei file del **company brain**: decisioni, processi, regole con fonte. Per l'onboarding e il rischio "se questa persona se ne va, se ne va anche il metodo". |
 | [`yempik-company-brain`](./yempik-company-brain/SKILL.md) | Skill compagna del **connettore MCP Yempik Company Brain**: l'agente collegato fonda le risposte sul Brain prima di rispondere a memoria e propone da solo decisioni, regole e fatti aziendali durevoli come **candidate** da ratificare in Inbox. Propose-only: mai verità attiva, mai effetti esterni senza revisione umana. *Richiede il connettore MCP Yempik.* |
+| [`yempik-gtm-engineer`](./yempik-gtm-engineer/SKILL.md) | Il **metodo GTM di Yempik, productizzato**: coverage map sulla conoscenza aziendale, ICP workshop, sourcing evidence-first, bozze fondate su fatti citabili, follow-up e weekly review governate dal Brain. 14 invarianti operative, state machine a 12 stati, 7 policy con formule vere e i failure mode dichiarati. Draft-only: non invia mai nulla da solo. *Richiede il connettore MCP Yempik e il pack GTM Engineer attivo nel workspace.* |
 | [`hotdogify`](./hotdogify/SKILL.md) 🌭 | Peggiora una UI **di proposito** e scrive il report deadpan che lo chiama un *win*: hamburger → hot dog, tastierino mescolato, "intentional friction", metriche che salgono e basta. Roba da postare. *Una battuta che gira davvero.* |
 
 ### Come si usa
@@ -61,6 +62,10 @@ connettore arriva con lui. Una sola connessione a `mcp.yempik.ai`, un solo conse
 Tutte le altre skill del repo restano cartelle normali: si copiano a mano o con
 `npx skills add yempik-ai/yempik-skills`, che continua a funzionare anche per le due skill
 di prodotto (senza però portarsi dietro il connettore).
+
+### Perché è tutto pubblico
+
+Una skill è un set di istruzioni che il tuo agente seguirà. Le pubblichiamo perché tu possa leggere **ogni riga** prima (e dopo) che il tuo agente le esegua — la stessa logica candidate-before-truth del [Company Brain](https://www.yempik.com/company-brain), applicata a noi stessi. Il metodo è leggibile; la governance che lo fa rispettare (verità ratificata, routine con budget e lease, approvazioni umane, receipts) vive nella piattaforma, su [brain.yempik.ai](https://brain.yempik.ai). Licenza: source-available, leggi e usa liberamente coi tuoi agenti, niente ridistribuzione o rivendita — dettagli in [LICENSE.md](./LICENSE.md).
 
 ### Crescere nel tempo
 
@@ -94,6 +99,7 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 | [`agent-reliability-audit`](./agent-reliability-audit/SKILL.md) | Runs **15 reliability audits on internal AI agents**. Starts from one agent or workflow, inspects instructions, policies, SOPs, decisions and traces, then finds stale, conflicting, unapproved, untraceable or permission-inappropriate knowledge. Returns P0-P3 findings, cited evidence and scenario evals. Sources stay read-only. |
 | [`knowledge-transfer`](./knowledge-transfer/SKILL.md) | Interviews a person, one question at a time, to extract their tacit know-how (exceptions, decision criteria, unwritten rules) and write it into the **company brain**: decisions, processes, rules with a source. For onboarding and the "if this person leaves, the method leaves too" risk. |
 | [`yempik-company-brain`](./yempik-company-brain/SKILL.md) | Companion skill for the **Yempik Company Brain MCP connector**: a connected agent grounds its answers in the Brain before answering from memory and proactively proposes durable decisions, rules and company facts as **candidates** to ratify from the Inbox. Propose-only: never active truth, never external effects without human review. *Requires the Yempik MCP connector.* |
+| [`yempik-gtm-engineer`](./yempik-gtm-engineer/SKILL.md) | **Yempik's GTM method, productized**: a coverage map over your company knowledge, ICP workshop, evidence-first sourcing, drafts grounded in citable facts, follow-ups and weekly reviews governed by the Brain. 14 operating invariants, a 12-state machine, 7 policies with real formulas and the failure modes stated out loud. Draft-only: it never sends anything on its own. *Requires the Yempik MCP connector and the GTM Engineer pack active in the workspace.* |
 | [`hotdogify`](./hotdogify/SKILL.md) 🌭 | Makes a UI **worse on purpose** and writes the deadpan report that calls it a *win*: hamburger → hot dog, shuffled keypad, "intentional friction", metrics that only go up. Built to be posted. *A joke that actually runs.* |
 
 ### How to use it
@@ -124,6 +130,10 @@ Every other skill in the repo stays a plain folder: copy it by hand or use
 `npx skills add yempik-ai/yempik-skills`, which keeps working for the two product skills as
 well (without bringing the connector along).
 
+### Why everything is public
+
+A skill is a set of instructions your agent will follow. We publish them so you can read **every line** before (and after) your agent executes them — the same candidate-before-truth logic as the [Company Brain](https://www.yempik.com/company-brain), applied to ourselves. The method is readable; the governance that enforces it (ratified truth, budgeted lease-based routines, human approvals, receipts) lives in the platform, at [brain.yempik.ai](https://brain.yempik.ai). License: source-available, read it and use it with your agents freely, no redistribution or resale — details in [LICENSE.md](./LICENSE.md).
+
 ### Growing over time
 
 We'll add more skills, **one folder per skill**. Each skill is self-contained: a `SKILL.md` plus any resources inside that same folder, no dangling files.
@@ -135,6 +145,8 @@ We'll add more skills, **one folder per skill**. Each skill is self-contained: a
 ## Canonical links
 
 - Yempik: [yempik.com](https://www.yempik.com)
+- Yempik Company Brain (product): [yempik.com/company-brain](https://www.yempik.com/company-brain) · app: [brain.yempik.ai](https://brain.yempik.ai)
+- License: [LICENSE.md](./LICENSE.md) (source-available)
 - Raffaele Zarrelli: [raffaelezarrelli.com](https://raffaelezarrelli.com)
 - Companion project: [cowork-os](https://github.com/yempik-ai/cowork-os)
 - Companion project: [code-os](https://github.com/yempik-ai/code-os)
