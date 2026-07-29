@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "yempik-company-brain",
+  "displayName": "Yempik Company Brain",
+  "version": "1.0.0",
+  "description": "Companion skill for the Yempik Company Brain MCP connector: ground answers in the Brain before answering from memory, and propose durable decisions, rules and company facts as candidates for human review. Propose-only, never active truth. Bundles the connector itself.",
+  "author": {
+    "name": "Yempik",
+    "url": "https://www.yempik.com"
+  },
+  "homepage": "https://brain.yempik.ai",
+  "repository": "https://github.com/yempik-ai/yempik-skills",
+  "keywords": [
+    "company brain",
+    "knowledge governance",
+    "mcp",
+    "grounding",
+    "yempik"
+  ],
+  "skills": [
+    "./"
+  ],
+  "mcpServers": {
+    "yempik": {
+      "type": "http",
+      "url": "https://mcp.yempik.ai/mcp"
+    }
+  }
+}

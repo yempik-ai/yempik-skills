@@ -43,6 +43,25 @@ Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel t
 
 Vuoi l'installazione one-click in Cowork? Possiamo impacchettare la cartella come file `.skill` da importare con "Save skill".
 
+### Skill Yempik: installazione come plugin
+
+Le due skill di prodotto (`yempik-company-brain`, `yempik-gtm-engineer`) hanno bisogno del
+connettore MCP Yempik per funzionare. Il marketplace plugin le installa **insieme al
+connettore**, in un passaggio solo — niente `claude mcp add` a mano:
+
+```
+/plugin marketplace add yempik-ai/yempik-skills
+/plugin install yempik-company-brain@yempik
+```
+
+Per l'outbound, `/plugin install yempik-gtm-engineer@yempik`: dichiara
+`yempik-company-brain` come dipendenza, quindi Claude Code installa anche quello e il
+connettore arriva con lui. Una sola connessione a `mcp.yempik.ai`, un solo consenso OAuth.
+
+Tutte le altre skill del repo restano cartelle normali: si copiano a mano o con
+`npx skills add yempik-ai/yempik-skills`, che continua a funzionare anche per le due skill
+di prodotto (senza però portarsi dietro il connettore).
+
 ### Crescere nel tempo
 
 Aggiungeremo altre skill, **una cartella per skill**. Ogni skill è self-contained: un `SKILL.md` più eventuali risorse dentro la stessa cartella, niente file penzolanti.
@@ -85,6 +104,25 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 If you use one of these skills, a star on the repository helps other builders find the project.
 
 Want one-click install in Cowork? We can package the folder as a `.skill` file to import with "Save skill".
+
+### Yempik skills: install as a plugin
+
+The two product skills (`yempik-company-brain`, `yempik-gtm-engineer`) need the Yempik MCP
+connector to do anything. The plugin marketplace installs them **together with the
+connector**, in one step — no manual `claude mcp add`:
+
+```
+/plugin marketplace add yempik-ai/yempik-skills
+/plugin install yempik-company-brain@yempik
+```
+
+For outbound, `/plugin install yempik-gtm-engineer@yempik`: it declares
+`yempik-company-brain` as a dependency, so Claude Code installs that too and the connector
+comes with it. One connection to `mcp.yempik.ai`, one OAuth consent.
+
+Every other skill in the repo stays a plain folder: copy it by hand or use
+`npx skills add yempik-ai/yempik-skills`, which keeps working for the two product skills as
+well (without bringing the connector along).
 
 ### Growing over time
 

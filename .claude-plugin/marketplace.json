@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "yempik",
+  "description": "Yempik plugins for Claude Code: the Company Brain MCP connector and the skills that drive it.",
+  "owner": {
+    "name": "yempik-ai",
+    "url": "https://github.com/yempik-ai"
+  },
+  "plugins": [
+    {
+      "name": "yempik-company-brain",
+      "source": "./yempik-company-brain",
+      "description": "Connects Claude Code to the Yempik Company Brain and teaches it the grounding and propose-only capture protocol. Bundles the mcp.yempik.ai connector.",
+      "category": "productivity"
+    },
+    {
+      "name": "yempik-gtm-engineer",
+      "source": "./yempik-gtm-engineer",
+      "description": "Founder-led outbound run against the Company Brain: account universe, scoring, evidence-grounded drafts, reply classification, weekly review. Drafts only, never sends.",
+      "category": "productivity"
+    }
+  ]
+}

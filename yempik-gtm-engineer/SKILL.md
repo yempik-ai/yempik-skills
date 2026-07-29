@@ -4,7 +4,7 @@ description: Use when running founder-led outbound with the Yempik Company Brain
 metadata:
   author: yempik
   homepage: "https://brain.yempik.ai"
-  version: "1.0.0"
+  version: "1.0.1"
   compatible_contract_versions:
     - "gtm-followup-engine-v1"
     - "gtm-weekly-review-v1"
@@ -47,6 +47,12 @@ recipe `gtm_readiness` and depth `fast`, and read which of its domains come back
 Report the gaps and stop there if any of the three is missing. `warm_relationship_map` is not
 one of the three gates but carries the same urgency: populate it before the first run, never
 after.
+
+Degradation: if `brain_resolve_question` does not accept or expose the `recipe` parameter,
+the connector is holding a tool schema cached from before the current server deploy. Ask the
+user to refresh or reconnect the Yempik connector, then retry the coverage call. Do not
+substitute a `product_strategy` coverage result for `gtm_readiness`: its domains do not answer
+the three ratification gates, so reading it as if they did reports a readiness nobody checked.
 
 The full install interview, the 10 intake questions and the install order are in
 `references/setup-and-intake.md`. Run the daily routine read-only for one week

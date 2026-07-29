@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "yempik-gtm-engineer",
+  "displayName": "Yempik GTM Engineer",
+  "version": "1.0.1",
+  "description": "Founder-led outbound pack for workspaces connected to the Yempik Company Brain: account universe, scoring and list approval, evidence-grounded first touches and follow-ups, reply classification, weekly GTM review. The agent only ever produces drafts, and no pipeline stage advances without a dated verifiable event.",
+  "author": {
+    "name": "Yempik",
+    "url": "https://www.yempik.com"
+  },
+  "homepage": "https://brain.yempik.ai",
+  "repository": "https://github.com/yempik-ai/yempik-skills",
+  "keywords": [
+    "gtm",
+    "outbound",
+    "sales",
+    "company brain",
+    "mcp",
+    "yempik"
+  ],
+  "skills": [
+    "./"
+  ],
+  "dependencies": [
+    "yempik-company-brain"
+  ]
+}
