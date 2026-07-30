@@ -18,6 +18,12 @@
       "source": "./yempik-gtm-engineer",
       "description": "Founder-led outbound run against the Company Brain: account universe, scoring, evidence-grounded drafts, reply classification, weekly review. Drafts only, never sends.",
       "category": "productivity"
+    },
+    {
+      "name": "yempik-founder-mode",
+      "source": "./yempik-founder-mode",
+      "description": "Founder-grade contrarian theses grounded in the Company Brain: consensus map, forced divergence, evidence-checked survivors. Labeled honestly when ungrounded, propose-only.",
+      "category": "productivity"
     }
   ]
 }

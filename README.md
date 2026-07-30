@@ -35,6 +35,7 @@ Una "skill" è un set di istruzioni — un file `SKILL.md` — che carichi nel t
 | [`knowledge-transfer`](./knowledge-transfer/SKILL.md) | Intervista una persona, una domanda alla volta, per estrarne il know-how tacito (eccezioni, criteri di decisione, regole non scritte) e scriverlo nei file del **company brain**: decisioni, processi, regole con fonte. Per l'onboarding e il rischio "se questa persona se ne va, se ne va anche il metodo". |
 | [`yempik-company-brain`](./yempik-company-brain/SKILL.md) | Skill compagna del **connettore MCP Yempik Company Brain**: l'agente collegato fonda le risposte sul Brain prima di rispondere a memoria e propone da solo decisioni, regole e fatti aziendali durevoli come **candidate** da ratificare in Inbox. Propose-only: mai verità attiva, mai effetti esterni senza revisione umana. *Richiede il connettore MCP Yempik.* |
 | [`yempik-gtm-engineer`](./yempik-gtm-engineer/SKILL.md) | Il **metodo GTM di Yempik, productizzato**: coverage map sulla conoscenza aziendale, ICP workshop, sourcing evidence-first, bozze fondate su fatti citabili, follow-up e weekly review governate dal Brain. 14 invarianti operative, state machine a 12 stati, 7 policy con formule vere e i failure mode dichiarati. Draft-only: non invia mai nulla da solo. *Richiede il connettore MCP Yempik e il pack GTM Engineer attivo nel workspace.* |
+| [`yempik-founder-mode`](./yempik-founder-mode/SKILL.md) | **Ideazione contrarian fondata sul Brain**: mappa del consenso, divergenza forzata (le tecniche misurate, non "pensa fuori dagli schemi"), e ogni idea sopravvissuta verificata sotto-claim per sotto-claim contro decisioni, regole, fatti e clienti del tenant. 3-5 tesi con citazioni; chi contraddice una decisione attiva viene promosso, non ucciso; il non coperto viaggia etichettato `UNGROUNDED`. Propose-only, un sì umano per tesi. *Richiede il connettore MCP Yempik.* |
 | [`hotdogify`](./hotdogify/SKILL.md) 🌭 | Peggiora una UI **di proposito** e scrive il report deadpan che lo chiama un *win*: hamburger → hot dog, tastierino mescolato, "intentional friction", metriche che salgono e basta. Roba da postare. *Una battuta che gira davvero.* |
 
 ### Come si usa
@@ -46,18 +47,20 @@ Vuoi l'installazione one-click in Cowork? Possiamo impacchettare la cartella com
 
 ### Skill Yempik: installazione come plugin
 
-Le due skill di prodotto (`yempik-company-brain`, `yempik-gtm-engineer`) hanno bisogno del
-connettore MCP Yempik per funzionare. Il marketplace plugin le installa **insieme al
-connettore**, in un passaggio solo — niente `claude mcp add` a mano:
+Le tre skill di prodotto (`yempik-company-brain`, `yempik-gtm-engineer`,
+`yempik-founder-mode`) hanno bisogno del connettore MCP Yempik per funzionare. Il
+marketplace plugin le installa **insieme al connettore**, in un passaggio solo — niente
+`claude mcp add` a mano:
 
 ```
 /plugin marketplace add yempik-ai/yempik-skills
 /plugin install yempik-company-brain@yempik
 ```
 
-Per l'outbound, `/plugin install yempik-gtm-engineer@yempik`: dichiara
-`yempik-company-brain` come dipendenza, quindi Claude Code installa anche quello e il
-connettore arriva con lui. Una sola connessione a `mcp.yempik.ai`, un solo consenso OAuth.
+Per l'outbound, `/plugin install yempik-gtm-engineer@yempik`; per l'ideazione contrarian,
+`/plugin install yempik-founder-mode@yempik`. Entrambi dichiarano `yempik-company-brain`
+come dipendenza, quindi Claude Code installa anche quello e il connettore arriva con lui.
+Una sola connessione a `mcp.yempik.ai`, un solo consenso OAuth.
 
 Tutte le altre skill del repo restano cartelle normali: si copiano a mano o con
 `npx skills add yempik-ai/yempik-skills`, che continua a funzionare anche per le due skill
@@ -100,6 +103,7 @@ A "skill" is a set of instructions — a `SKILL.md` file — that you load into 
 | [`knowledge-transfer`](./knowledge-transfer/SKILL.md) | Interviews a person, one question at a time, to extract their tacit know-how (exceptions, decision criteria, unwritten rules) and write it into the **company brain**: decisions, processes, rules with a source. For onboarding and the "if this person leaves, the method leaves too" risk. |
 | [`yempik-company-brain`](./yempik-company-brain/SKILL.md) | Companion skill for the **Yempik Company Brain MCP connector**: a connected agent grounds its answers in the Brain before answering from memory and proactively proposes durable decisions, rules and company facts as **candidates** to ratify from the Inbox. Propose-only: never active truth, never external effects without human review. *Requires the Yempik MCP connector.* |
 | [`yempik-gtm-engineer`](./yempik-gtm-engineer/SKILL.md) | **Yempik's GTM method, productized**: a coverage map over your company knowledge, ICP workshop, evidence-first sourcing, drafts grounded in citable facts, follow-ups and weekly reviews governed by the Brain. 14 operating invariants, a 12-state machine, 7 policies with real formulas and the failure modes stated out loud. Draft-only: it never sends anything on its own. *Requires the Yempik MCP connector and the GTM Engineer pack active in the workspace.* |
+| [`yempik-founder-mode`](./yempik-founder-mode/SKILL.md) | **Contrarian ideation grounded in the Brain**: a consensus map, forced divergence (the measured techniques, not "think outside the box"), and every surviving idea verified sub-claim by sub-claim against the tenant's decisions, rules, facts and clients. 3-5 theses with citations; whatever contradicts an active decision gets promoted, not killed; whatever the Brain does not cover ships labeled `UNGROUNDED`. Propose-only, one human yes per thesis. *Requires the Yempik MCP connector.* |
 | [`hotdogify`](./hotdogify/SKILL.md) 🌭 | Makes a UI **worse on purpose** and writes the deadpan report that calls it a *win*: hamburger → hot dog, shuffled keypad, "intentional friction", metrics that only go up. Built to be posted. *A joke that actually runs.* |
 
 ### How to use it

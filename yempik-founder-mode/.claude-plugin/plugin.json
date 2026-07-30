@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "yempik-founder-mode",
+  "displayName": "Yempik Founder Mode",
+  "version": "1.0.0",
+  "description": "Contrarian ideation pack for workspaces connected to the Yempik Company Brain: consensus mapping, forced divergence, and grounding of every surviving idea against the tenant's governed decisions, rules, facts and clients. Theses arrive with Brain citations; anything ungrounded is labeled; nothing is written to the Brain without per-thesis human confirmation.",
+  "author": {
+    "name": "Yempik",
+    "url": "https://www.yempik.com"
+  },
+  "homepage": "https://brain.yempik.ai",
+  "repository": "https://github.com/yempik-ai/yempik-skills",
+  "keywords": [
+    "ideation",
+    "brainstorming",
+    "contrarian",
+    "strategy",
+    "company brain",
+    "mcp",
+    "yempik"
+  ],
+  "skills": [
+    "./"
+  ],
+  "dependencies": [
+    "yempik-company-brain"
+  ]
+}
