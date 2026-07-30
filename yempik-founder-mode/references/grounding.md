@@ -74,16 +74,17 @@ that separates this pack from a prompt anyone can copy. If a citation cannot be 
 call in this session's history, the thesis has no grounding and takes the `UNGROUNDED` label
 from `references/output-contract.md`.
 
-**A non-null "current" decision is not evidence of relevance.** Before citing any
-`brain_get_current_decision` result, read the returned title and body and confirm they are
-about the sub-claim's subject. On some off-topic queries the tool correctly answers with null
-and "No visible active decision matched"; on others it answers with the highest-ranked visible
-active decision regardless of topic, annotating the choice instead of exposing a similarity
-score. A non-null result is therefore proof of rank among visible decisions, not proof of fit,
-and an irrelevant "current" counts as found-nothing for that sub-claim. This rule is stricter
-than the one above it for a reason: an id that genuinely was returned by a tool call in this
-session passes the returned-by-a-tool check while supporting a claim it says nothing about,
-which makes it more dangerous than a fabricated id rather than less.
+**Read a returned decision before citing it.** `brain_get_current_decision` declines below a
+relevance bar: an off-topic query answers with null and says no active decision matched
+closely enough, and a non-null result carries a note that it cleared the bar. Take the note
+as the server's claim, not as your check. Read the returned title and body and confirm they
+are about the sub-claim's subject; if they are not, the sub-claim found nothing. The reason
+this rule survives a server that now filters: an id that genuinely was returned by a tool
+call in this session passes the returned-by-a-tool check while supporting a claim it says
+nothing about, which makes it more dangerous than a fabricated id rather than less. A
+declined lookup is a normal answer, not a fault, and never evidence that the company has no
+position: `brain_search` may still surface weaker material, because it never claims what it
+returns is current truth.
 
 **A tool error is not a verdict.** On an error, an internal error included, retry the call once
 with the phrasing tightened toward a decision title. If it errors again the sub-claim is

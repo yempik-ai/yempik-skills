@@ -4,7 +4,7 @@ description: Use when the user wants contrarian, non-obvious, founder-grade idea
 metadata:
   author: yempik
   homepage: "https://brain.yempik.ai"
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Yempik Founder Mode
