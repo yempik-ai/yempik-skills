@@ -15,7 +15,7 @@ Codex-first SEO analysis suite with 1 orchestrator skill, 26 specialist workflow
 
 Codex SEO is a Codex-native port of [`AgriciDaniel/claude-seo`](https://github.com/AgriciDaniel/claude-seo), synchronized to upstream `main` at `a9cf338` and adapted for Codex skills, Codex plugins, TOML agents, shared cache artifacts, and repeatable local/API execution.
 
-It covers technical SEO, on-page analysis, content quality, E-E-A-T, schema markup, image optimization, sitemap architecture, Core Web Vitals, GEO/AEO for AI search, backlinks, local SEO, maps intelligence, Google APIs, semantic clustering, SXO, drift monitoring, e-commerce SEO, hreflang, FLOW prompts, DataForSEO, Firecrawl, and Gemini/nanobanana image workflows.
+It covers technical SEO, on-page analysis, content quality, E-E-A-T, schema markup, image optimization, sitemap architecture, Core Web Vitals, GEO/AEO for AI search, backlinks, local SEO, maps intelligence, Google APIs, semantic clustering, SXO, drift monitoring, e-commerce SEO, hreflang, FLOW prompts, DataForSEO, ScrapeGraphAI, and Gemini/nanobanana image workflows.
 
 ## Contents
 
@@ -173,7 +173,7 @@ flowchart LR
 | `/seo ecommerce <url>` | Product SEO, marketplace visibility, product schema |
 | `/seo flow <stage>` | FLOW framework prompts for Find, Leverage, Optimize, Win |
 | `/seo dataforseo <command>` | Live SERP, keyword, backlink, content, and AI visibility data |
-| `/seo firecrawl <command>` | JS-rendered crawling and site mapping via Firecrawl |
+| `/seo scrapegraph <command>` | JS-rendered crawling and site mapping via ScrapeGraphAI |
 | `/seo image-gen <use-case>` | OG images, hero images, product visuals, infographics |
 
 Full command details live in [docs/COMMANDS.md](docs/COMMANDS.md).
@@ -286,7 +286,7 @@ sequenceDiagram
 |---|---|---|---|
 | DataForSEO | `seo-dataforseo`, `seo-maps`, `seo-ecommerce`, `seo-cluster` | `./extensions/dataforseo/install.sh` | Live SERP, keyword, backlinks, on-page, content, business data, AI visibility |
 | Google APIs | `seo-google`, `seo-performance` | `python scripts/google_auth.py --setup` | PageSpeed, CrUX, GSC, URL Inspection, Indexing API, GA4 |
-| Firecrawl | `seo-firecrawl` | `./extensions/firecrawl/install.sh` | JS-rendered crawl, scrape, site map |
+| ScrapeGraphAI | `seo-scrapegraph` | `./extensions/scrapegraph/install.sh` | JS-rendered crawl, scrape, AI extract, site map |
 | Banana / Gemini | `seo-image-gen` | `./extensions/banana/install.sh` | AI image generation through `nanobanana-mcp` |
 
 Optional integrations enrich the same workflow surface. If credentials or MCP servers are missing, wrappers return `setup_required` or `mcp_configured` states with no fabricated live data.
@@ -297,15 +297,15 @@ flowchart LR
   codex["Codex SEO workflows"] --> local["Local evidence<br/>HTML, robots, sitemaps, screenshots"]
   codex --> dfs["DataForSEO MCP<br/>SERP, keywords, backlinks, maps"]
   codex --> google["Google APIs<br/>GSC, PageSpeed, CrUX, GA4"]
-  codex --> firecrawl["Firecrawl MCP<br/>JS crawl and site maps"]
+  codex --> scrapegraph["ScrapeGraphAI MCP<br/>JS crawl, extract and site maps"]
   codex --> banana["Gemini / nanobanana<br/>SEO image assets"]
   local --> artifacts["Reports and .seo-cache"]
   dfs --> artifacts
   google --> artifacts
-  firecrawl --> artifacts
+  scrapegraph --> artifacts
   banana --> artifacts
   class codex accent
-  class local,dfs,google,firecrawl,banana data
+  class local,dfs,google,scrapegraph,banana data
   class artifacts output
   classDef default fill:#07131c,stroke:#00d7e6,color:#f5fbff,stroke-width:1.4px
   classDef accent fill:#10151a,stroke:#ff9f1c,color:#fff7ed,stroke-width:2px
@@ -414,7 +414,7 @@ codex-seo/
 ├── scripts/                         # Deterministic runners and API helpers
 ├── extensions/
 │   ├── dataforseo/                  # DataForSEO MCP setup and docs
-│   ├── firecrawl/                   # Firecrawl MCP setup and docs
+│   ├── scrapegraph/                 # ScrapeGraphAI MCP setup and docs
 │   └── banana/                      # Gemini/nanobanana image generation setup
 ├── hooks/                           # Quality-gate hooks
 ├── schema/                          # Schema.org templates
@@ -472,7 +472,7 @@ Current GitHub CI runs:
 - Optional: Playwright Chromium for screenshots and PDF reports
 - Optional: DataForSEO account for live SEO data
 - Optional: Google API credentials for PageSpeed/CrUX/GSC/GA4
-- Optional: Firecrawl API key for JS-rendered crawling
+- Optional: ScrapeGraphAI API key for JS-rendered crawling
 - Optional: Google AI API key for Gemini/nanobanana image generation
 
 ## Credentials And Cache

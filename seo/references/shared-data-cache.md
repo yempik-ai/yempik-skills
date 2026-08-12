@@ -36,7 +36,7 @@ stale, corrupt, or unreadable, the skill proceeds with normal gathering.
   ecommerce.json
   flow.json
   dataforseo.json
-  firecrawl.json
+  scrapegraph.json
   pages/
     {url-slug}/
       technical.json
@@ -150,7 +150,7 @@ grep -qxF '.seo-cache/' .gitignore 2>/dev/null || echo '.seo-cache/' >> .gitigno
 | `seo-ecommerce` | `site-meta.json`, `schema.json`, `images.json` | `ecommerce.json` |
 | `seo-flow` | `site-meta.json`, latest specialist caches | `flow.json` |
 | `seo-dataforseo` | `site-meta.json`, active specialist cache | `dataforseo.json` |
-| `seo-firecrawl` | `site-meta.json`, `sitemap.json` | `firecrawl.json` |
+| `seo-scrapegraph` | `site-meta.json`, `sitemap.json` | `scrapegraph.json` |
 | `seo-image-gen` | `site-meta.json`, `images.json`, `content.json` | `image-gen.json` |
 | `seo` | `site-meta.json`, `audit-scores.json` | none |
 
@@ -403,7 +403,7 @@ fields when useful, but should preserve the documented top-level structure.
 
 Use this shared shape for `backlinks.json`, `google.json`, `local.json`,
 `maps.json`, `cluster.json`, `sxo.json`, `drift.json`, `ecommerce.json`,
-`flow.json`, `dataforseo.json`, `firecrawl.json`, and `image-gen.json`:
+`flow.json`, `dataforseo.json`, `scrapegraph.json`, and `image-gen.json`:
 
 ```json
 {
@@ -423,6 +423,6 @@ Use this shared shape for `backlinks.json`, `google.json`, `local.json`,
 ```
 
 Set `cache_type` to the skill family (`google`, `local`, `maps`, `cluster`,
-`sxo`, `drift`, `ecommerce`, `flow`, `dataforseo`, `firecrawl`, or `image-gen`).
+`sxo`, `drift`, `ecommerce`, `flow`, `dataforseo`, `scrapegraph`, or `image-gen`).
 If a workflow is unavailable because an MCP server or credential is missing, still
 write a summary when useful with `status: "setup_required"` and clear limitations.
