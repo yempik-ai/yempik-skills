@@ -20,7 +20,7 @@ Use the matching specialist skill directly when the request is narrow.
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
 e-commerce, publishers, agencies). Orchestrates 26 specialized sub-skills and 24 Codex
-agent profiles, with optional MCP-backed extensions for DataForSEO, Firecrawl, and image generation.
+agent profiles, with optional MCP-backed extensions for DataForSEO, ScrapeGraphAI, and image generation.
 
 ## Shared Data Cache
 
@@ -65,7 +65,7 @@ Check these cache files when present:
 | `/seo drift compare <url>` | Compare current state to stored baseline |
 | `/seo drift history <url>` | Show drift history over time |
 | `/seo ecommerce <url>` | E-commerce SEO: product schema, marketplace intelligence |
-| `/seo firecrawl [command] <url>` | Full-site crawling and site mapping (extension) |
+| `/seo scrapegraph [command] <url>` | Full-site crawling and site mapping (extension) |
 | `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
 | `/seo image-gen [use-case] <description>` | AI image generation for SEO assets (extension) |
 | `/seo flow [stage] [url\|topic]` | FLOW framework: evidence-led prompts for Find, Leverage, Optimize, Win, or Local stages |
@@ -79,7 +79,7 @@ When the user invokes `/seo audit`, delegate to subagents in parallel:
 4. If local business detected, also spawn seo-local agent
 5. If local business detected AND DataForSEO MCP available, also spawn seo-maps agent
 6. If backlink APIs detected (`python scripts/backlinks_auth.py --check`), also spawn seo-backlinks agent
-7. If Firecrawl MCP available, use `firecrawl_map` to discover all site URLs before analysis
+7. If ScrapeGraphAI MCP available, run a links-only crawl to discover all site URLs before analysis
 8. If content strategy signals detected (blog, pillar pages, topic clusters), also spawn seo-cluster agent
 9. If e-commerce detected, also spawn seo-ecommerce agent
 10. If drift baseline exists for this URL (`python scripts/drift_history.py <url>`), also spawn seo-drift agent
@@ -218,7 +218,7 @@ This skill orchestrates 26 specialized sub-skills, including optional extension-
 20. **seo-sxo** -- Search Experience Optimization
 21. **seo-drift** -- SEO drift monitoring
 22. **seo-ecommerce** -- E-commerce SEO intelligence
-23. **seo-firecrawl** -- Full-site crawling and site mapping via Firecrawl MCP (extension)
+23. **seo-scrapegraph** -- Full-site crawling and site mapping via ScrapeGraphAI MCP (extension)
 24. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension)
 25. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension)
 26. **seo-flow** -- FLOW framework integration (Find -> Leverage -> Optimize -> Win, 41 AI prompts, CC BY 4.0)
@@ -243,7 +243,7 @@ For parallel analysis during audits:
 - `seo-ecommerce` -- Product schema, marketplace intel (conditional: e-commerce detected)
 - `seo-dataforseo` -- Live SERP, keyword, backlink, local SEO data (extension, optional)
 - `seo-image-gen` -- SEO image audit and generation plan (extension, optional)
-- `seo-firecrawl` -- Full-site crawl and site mapping (extension, optional; used by audit for URL discovery)
+- `seo-scrapegraph` -- Full-site crawl and site mapping (extension, optional; used by audit for URL discovery)
 
 ## Error Handling
 

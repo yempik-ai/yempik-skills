@@ -49,8 +49,19 @@ def codex_settings_path() -> Path:
     return Path(os.environ.get("CODEX_HOME", Path.home() / ".codex")) / "settings.json"
 
 
-def configured_mcp_server(name: str, required_env: list[str] | None = None) -> dict[str, Any]:
-    """Return sanitized MCP server configuration status from Codex settings."""
+def configured_mcp_server(
+    name: str,
+    required_env: list[str] | None = None,
+    credential_headers: list[str] | None = None,
+) -> dict[str, Any]:
+    """Return sanitized MCP server configuration status from Codex settings.
+
+    A locally spawned server counts as configured when every key in ``required_env``
+    is present in its ``env`` block. A hosted Streamable HTTP server (ScrapeGraphAI)
+    has no spawned process to carry an environment, so it counts as configured when
+    it carries any one of ``credential_headers``. Only key names are returned, never
+    credential values.
+    """
     settings_path = codex_settings_path()
     try:
         settings = json.loads(settings_path.read_text(encoding="utf-8"))
@@ -62,14 +73,18 @@ def configured_mcp_server(name: str, required_env: list[str] | None = None) -> d
         return {"configured": False, "settings_path": str(settings_path), "missing_env": required_env or []}
 
     env = server.get("env", {}) if isinstance(server.get("env"), dict) else {}
+    headers = server.get("headers", {}) if isinstance(server.get("headers"), dict) else {}
     missing_env = [key for key in (required_env or []) if not env.get(key)]
+    header_auth = any(headers.get(key) for key in (credential_headers or []))
     return {
-        "configured": not missing_env,
+        "configured": header_auth or not missing_env,
         "settings_path": str(settings_path),
         "command": server.get("command"),
         "args": server.get("args", []),
+        "url": server.get("url"),
         "env_keys": sorted(env),
-        "missing_env": missing_env,
+        "header_keys": sorted(headers),
+        "missing_env": [] if header_auth else missing_env,
     }
 
 
@@ -332,21 +347,22 @@ def run_specialist(skill: str, target: str, output_root: Path | None = None) -> 
         report = simple_report("SEO Drift Summary", None, summary, issues, recommendations)
         return write_specialist_artifacts(skill, target, result, output_dir_for(skill, target, output_root), "DRIFT-SUMMARY.md", report, ROOT / ".seo-cache" / "drift.json")
 
-    if skill in {"seo-dataforseo", "seo-firecrawl", "seo-image-gen", "seo-maps"}:
+    if skill in {"seo-dataforseo", "seo-scrapegraph", "seo-image-gen", "seo-maps"}:
         setup = {
             "seo-dataforseo": "DataForSEO MCP server is required for live SERP, keyword, backlink, and AI visibility data.",
-            "seo-firecrawl": "Firecrawl MCP server is required for full-site JS-rendered crawling.",
+            "seo-scrapegraph": "ScrapeGraphAI MCP server is required for full-site JS-rendered crawling.",
             "seo-image-gen": "Image generation MCP tooling is required for generation/editing workflows.",
             "seo-maps": "Maps intelligence runs in a limited free tier unless DataForSEO and Google Maps credentials are configured.",
         }
+        # (server name, env keys for a spawned server, credential headers for a hosted one)
         server_requirements = {
-            "seo-dataforseo": ("dataforseo", ["DATAFORSEO_USERNAME", "DATAFORSEO_PASSWORD"]),
-            "seo-firecrawl": ("firecrawl-mcp", ["FIRECRAWL_API_KEY"]),
-            "seo-image-gen": ("nanobanana-mcp", ["GOOGLE_AI_API_KEY"]),
-            "seo-maps": ("dataforseo", ["DATAFORSEO_USERNAME", "DATAFORSEO_PASSWORD"]),
+            "seo-dataforseo": ("dataforseo", ["DATAFORSEO_USERNAME", "DATAFORSEO_PASSWORD"], []),
+            "seo-scrapegraph": ("scrapegraph", ["SGAI_API_KEY"], ["X-API-Key", "SGAI-APIKEY", "Authorization"]),
+            "seo-image-gen": ("nanobanana-mcp", ["GOOGLE_AI_API_KEY"], []),
+            "seo-maps": ("dataforseo", ["DATAFORSEO_USERNAME", "DATAFORSEO_PASSWORD"], []),
         }
-        server_name, required_env = server_requirements[skill]
-        mcp_status = configured_mcp_server(server_name, required_env)
+        server_name, required_env, credential_headers = server_requirements[skill]
+        mcp_status = configured_mcp_server(server_name, required_env, credential_headers)
         if mcp_status["configured"]:
             status = "mcp_configured"
             issues = []
@@ -357,7 +373,7 @@ def run_specialist(skill: str, target: str, output_root: Path | None = None) -> 
             recommendations = ["Install/configure the related extension or MCP server before requesting live data."]
         summary = [setup[skill]]
         if mcp_status["configured"]:
-            summary.append(f"Codex settings include `{server_name}` with required environment keys present.")
+            summary.append(f"Codex settings include `{server_name}` with required credentials present.")
         else:
             summary.append(f"Codex settings do not include a complete `{server_name}` MCP configuration.")
         return run_capability_summary(
