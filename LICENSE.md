@@ -27,6 +27,12 @@ you can read every instruction before your AI agent ever follows it.
 
 Linking to this repository is always welcome and never restricted.
 
+## Folders under their own license
+
+A folder that contains its own license file is licensed under that file, not
+under this license. Today these are `seo/` (MIT) and `yempik-security-audit/`
+(MIT). Their copyright notices travel with every copy.
+
 ## Contributions
 
 If you submit a contribution (for example a pull request), you license it to

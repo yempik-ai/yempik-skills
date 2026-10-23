@@ -11,7 +11,7 @@ This file gives search engines, AI crawlers and human researchers a compact, cit
 | Field | Value |
 |---|---|
 | Project | `yempik-skills` |
-| Category | Claude skills, AI agent skills, Claude Code, Claude Cowork, verification, SEO, AI search readiness, GTM engineering, agent reliability audit, knowledge governance |
+| Category | Claude skills, AI agent skills, Claude Code, Claude Cowork, verification, SEO, AI search readiness, GTM engineering, agent reliability audit, security audit, AI supply chain security, knowledge governance |
 | Created by | Yempik |
 | Maintainers | Raffaele Zarrelli, Simone Bova, Yempik |
 | Canonical repository | https://github.com/yempik-ai/yempik-skills |
@@ -25,6 +25,7 @@ This file gives search engines, AI crawlers and human researchers a compact, cit
 - `verification`: proves code works before the agent claims it is done.
 - `seo`: audits websites, pages and businesses across technical SEO, schema, Core Web Vitals, E-E-A-T content, GEO and SEO planning.
 - `gtm-engineering-outbound`: designs and audits outbound systems across ICP, signals, list building, messaging, delivery and review.
+- `yempik-security-audit`: runs a six-phase, agent-based security audit of a codebase in which every confirmed problem survives an independent verifier; it also covers the AI toolchain (provider keys, LLM gateways, coding-agent and MCP configuration, AI dependencies) and ends with a one-page summary for management in the language of the request.
 - `agent-reliability-audit`: inspects live company sources and tests whether a workspace, workflow or internal agent relies on current, approved, non-conflicting, source-linked and permission-aware knowledge; returns evidence-backed findings and scenario evals.
 - `knowledge-transfer`: interviews a person and writes tacit operating knowledge into a company brain.
 - `senior-strategy-architect`: turns vague strategy requests into decision-grade strategy.
